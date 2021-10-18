@@ -42,6 +42,10 @@ public class MenuOptions extends JFrame implements ActionListener {
 
     private void performMenuOperation(server.constants.MenuOptions menuOption) {
         Marketplace marketplace = new Marketplace();
+        if(menuOption.getMenuId() == 0) {
+            System.exit(0);
+            return;
+        }
         marketplace.performOperation(menuOption.getMenuId());
 
     }

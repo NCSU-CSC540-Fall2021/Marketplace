@@ -50,7 +50,7 @@ public class BrandCreation extends JFrame{
                 + brandAddressText + " " + brandJoinDateText + " " + brandCreatorIdText);
 
         BrandService brandService = new BrandService();
-        String response = brandService.createBrandV1(brandNameText, brandAddressText, brandJoinDateText, brandCreatorIdText);
+        String response = brandService.createBrand(brandNameText, brandAddressText, brandJoinDateText, brandCreatorIdText);
 
         JOptionPane.showMessageDialog(this, response);
         jFrame.setVisible(false);

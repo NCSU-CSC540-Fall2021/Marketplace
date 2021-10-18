@@ -13,22 +13,12 @@ public class BrandService {
 
     Scanner scanner = new Scanner(System.in);
 
-
-//    public BrandService(BrandDao brandDao) {
-//        this.brandDao = brandDao;
-//    }
-
     public BrandService () {
 
     }
-    public String createBrand () {
-        String response = "";
 
-        return response;
-    }
-
-    public String createBrandV1(String brandNameText, String brandAddressText,
-                                String brandJoinDateText, String brandCreatorIdText) throws ParseException, SQLException {
+    public String createBrand(String brandNameText, String brandAddressText,
+                              String brandJoinDateText, String brandCreatorIdText) throws ParseException, SQLException {
 
         BrandDao brandDao = new BrandDao();
         Brand brand = new Brand();
