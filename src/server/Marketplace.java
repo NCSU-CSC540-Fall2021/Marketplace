@@ -1,8 +1,10 @@
 package server;
 
 import client.BrandCreation;
+import client.CustomerCreation;
 import server.constants.MenuOptions;
 import server.dao.BrandDao;
+import server.service.CustomerService;
 
 public class Marketplace {
     BrandDao brandDao;
@@ -29,6 +31,9 @@ public class Marketplace {
                 brandCreation.showFormForInput();
                 // brandService.createBrand();
                 break;
+            case 2 :
+                CustomerCreation customerCreation = new CustomerCreation();
+                customerCreation.showFormForInput();
         }
     }
 }
