@@ -15,15 +15,16 @@ public class CustomerDao {
     public String createCustomer(Customer customer) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
 
-        String sqlQuery = "Insert into " + TABLENAME + "(cname, address, phone_no, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?)";
+        String sqlQuery = "Insert into " + TABLENAME + "(cname, address, phone_no, username, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, customer.getCname());
         preparedStatement.setString(2, customer.getAddress());
         preparedStatement.setString(3, customer.getPhone_no());
-        preparedStatement.setInt(4, customer.getCreatedBy());
-        preparedStatement.setDate(5, new Date (customer.getCreatedAt().getTime()));
-        preparedStatement.setInt(6, customer.getUpdatedBy());
+        preparedStatement.setString(4, customer.getUserName());
+        preparedStatement.setInt(5, customer.getCreatedBy());
+        preparedStatement.setDate(6, new Date (customer.getCreatedAt().getTime()));
+        preparedStatement.setInt(7, customer.getUpdatedBy());
 
         String response = "";
         try {
