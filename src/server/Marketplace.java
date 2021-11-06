@@ -2,9 +2,10 @@ package server;
 
 import client.BrandCreation;
 import client.CustomerCreation;
+import client.ActivityTypeCreation;
+import client.RewardTypeCreation;
 import server.constants.MenuOptions;
 import server.dao.BrandDao;
-import server.service.CustomerService;
 
 public class Marketplace {
     BrandDao brandDao;
@@ -25,7 +26,6 @@ public class Marketplace {
 
     public void performOperation(int menuOption) {
         switch (menuOption) {
-
             case 1:
                 BrandCreation brandCreation = new BrandCreation();
                 brandCreation.showFormForInput();
@@ -34,6 +34,12 @@ public class Marketplace {
             case 2 :
                 CustomerCreation customerCreation = new CustomerCreation();
                 customerCreation.showFormForInput();
+            case 3 :
+                ActivityTypeCreation activityTypeCreation = new ActivityTypeCreation();
+                activityTypeCreation.showFormForInput();
+            case 4 :
+                RewardTypeCreation rewardTypeCreation = new RewardTypeCreation();
+                rewardTypeCreation.showFormForInput();
         }
     }
 }
