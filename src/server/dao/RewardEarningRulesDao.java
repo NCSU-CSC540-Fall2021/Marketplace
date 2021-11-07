@@ -18,7 +18,7 @@ public class RewardEarningRulesDao {
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Insert into " + TABLENAME + "(reward_earning_code, brand_id, version_number, activity_code, re_points ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(reward_earning_code, brand_id, version_number, activity_code, re_points ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, rewardEarningRules.getRewardEarningCode());

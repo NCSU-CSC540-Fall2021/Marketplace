@@ -1,12 +1,18 @@
 package client;
 
 import server.constants.BrandLandingOptions;
+import server.entity.ActivityType;
 import server.entity.User;
+import server.service.ActivityTypeService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BrandLanding extends JFrame implements ActionListener {
     private JComboBox brandLandingComboBox;
@@ -22,7 +28,11 @@ public class BrandLanding extends JFrame implements ActionListener {
             String selectedItem = (String) brandLandingComboBox.getSelectedItem();
             System.out.println(selectedItem);
             BrandLandingOptions brandLandingOptions = BrandLandingOptions.getBrandOptionByDescription(selectedItem);
-            performMenuOperation(brandLandingOptions);
+            try {
+                performMenuOperation(brandLandingOptions);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -48,7 +58,7 @@ public class BrandLanding extends JFrame implements ActionListener {
         jFrame.setVisible(true);
     }
 
-    private void performMenuOperation(BrandLandingOptions brandLandingOption) {
+    private void performMenuOperation(BrandLandingOptions brandLandingOption) throws SQLException {
         int optionId = brandLandingOption.getOptionId();
         switch (optionId) {
             case 1:
@@ -56,6 +66,11 @@ public class BrandLanding extends JFrame implements ActionListener {
                 break;
             case 2:
                 // ADD_RE_RULES
+                // get activities, pass brand id
+                ActivityTypeService activityTypeService = new ActivityTypeService();
+                List<ActivityType> allActivities = activityTypeService.getAllActivities();
+                AddRERules addRERulesPage = new AddRERules();
+                addRERulesPage.showInput(user, allActivities);
                 break;
             case 3:
                 // UPDATE_RE_RULES
