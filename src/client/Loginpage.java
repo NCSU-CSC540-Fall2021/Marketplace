@@ -6,8 +6,6 @@ import server.service.LoginService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class Loginpage extends JFrame{
@@ -71,6 +69,4 @@ public class Loginpage extends JFrame{
             adminLandingPage.selectMenuOption(user);
         }
     }
-
-
 }

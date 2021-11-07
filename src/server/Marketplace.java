@@ -9,6 +9,4 @@ public class Marketplace {
     public Marketplace() {
         brandDao = new BrandDao();
     }
-
-
 }

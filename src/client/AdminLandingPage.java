@@ -1,6 +1,5 @@
 package client;
 
-import server.Marketplace;
 import server.entity.User;
 
 import javax.swing.*;
