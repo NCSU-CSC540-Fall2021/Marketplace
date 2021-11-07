@@ -19,9 +19,9 @@ public class CustomerDao {
         preparedStatement.setString(2, customer.getAddress());
         preparedStatement.setString(3, customer.getPhone_no());
         preparedStatement.setString(4, customer.getUserName());
-        preparedStatement.setInt(5, customer.getCreatedBy());
+        preparedStatement.setString(5, customer.getCreatedBy());
         preparedStatement.setDate(6, new Date (customer.getCreatedAt().getTime()));
-        preparedStatement.setInt(7, customer.getUpdatedBy());
+        preparedStatement.setString(7, customer.getUpdatedBy());
 
         String response = "";
         try {
@@ -60,6 +60,32 @@ public class CustomerDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return customer;
+    }
+
+    public Customer findCustomerInfoByUserName(Customer customer) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * " + TABLENAME + " where username = ? ";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, customer.getUserName());
+
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found");
+
+            while(resultSet.next()) {
+                customer.setId(resultSet.getInt(1));
+                customer.setCname(resultSet.getString(2));
+                customer.setAddress(resultSet.getString(3));
+                customer.setPhone_no(resultSet.getString(4));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         DatabaseConnection.closeDatabaseConnection(connection);
         return customer;
     }

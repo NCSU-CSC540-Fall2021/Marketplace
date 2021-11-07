@@ -1,6 +1,5 @@
 package client;
 
-import server.Marketplace;
 import server.entity.User;
 
 import javax.swing.*;
@@ -13,9 +12,11 @@ public class AdminLandingPage extends JFrame implements ActionListener {
     private JPanel mainMenuPanel;
     private JLabel adminLandingBar;
     private JComboBox menuCombo;
+    private User user;
 
     public void selectMenuOption(User user) {
 
+        this.user = user;
         this.setTitle("Welcome to marketplace");
         this.setPreferredSize(new Dimension(500, 500));
         this.setResizable(false);
@@ -46,12 +47,49 @@ public class AdminLandingPage extends JFrame implements ActionListener {
     }
 
     private void performMenuOperation(server.constants.MenuOptions menuOption) {
-        Marketplace marketplace = new Marketplace();
-        if(menuOption.getMenuId() == 0) {
-            System.exit(0);
-            return;
+        int menuId = menuOption.getMenuId();
+        switch(menuId)
+        {
+            case 1 :
+                // add brand with admin user
+                BrandCreation brandCreation = new BrandCreation();
+                brandCreation.showFormForInput(user);
+                this.setVisible(false);
+                break;
+            case 2 :
+                // add customer with admin user
+                CustomerCreation customerCreation = new CustomerCreation();
+                customerCreation.showFormForInput(user);
+                this.setVisible(false);
+                break;
+            case 3 :
+                // show brand info
+                ShowBrandInfo showBrandInfo = new ShowBrandInfo();
+                showBrandInfo.showBrandInfo(user);
+                this.setVisible(false);
+                break;
+            case 4 :
+                // show customer info
+                ShowCustomerInfo showCustomerInfo = new ShowCustomerInfo();
+                showCustomerInfo.showCustomerInfo(user);
+                this.setVisible(false);
+                break;
+            case 5 :
+                // add activity type
+                ActivityTypeCreation activityTypeCreation = new ActivityTypeCreation();
+                activityTypeCreation.showFormForInput(user);
+                this.setVisible(false);
+                break;
+            case 6 :
+                // add reward type
+                RewardTypeCreation rewardTypeCreation = new RewardTypeCreation();
+                rewardTypeCreation.showFormForInput(user);
+                break;
+            case 7 :
+                Homepage homepage = new Homepage();
+                homepage.showHomePage();
+                this.setVisible(false);
+                break;
         }
-        marketplace.performOperation(menuOption.getMenuId());
-
     }
 }
