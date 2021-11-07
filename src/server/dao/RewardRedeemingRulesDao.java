@@ -14,11 +14,11 @@ public class RewardRedeemingRulesDao {
     public static String TABLENAME = "reward_redeeming_rules";
     public Connection connection;
 
-    public String createRewardEarningRules(RewardRedeemingRules rewardredeemingRules){
+    public String createRewardRedeemingRules(RewardRedeemingRules rewardredeemingRules){
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Insert into " + TABLENAME + "(reward_code, brand_id, rr_points,version_number, number_of_instances ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(reward_code, brand_id, rr_points, version_number, number_of_instances ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, rewardredeemingRules.getRewardCode());

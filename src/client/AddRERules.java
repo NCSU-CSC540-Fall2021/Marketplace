@@ -30,6 +30,7 @@ public class AddRERules extends JFrame {
         goBackButton.addActionListener(e -> {
             BrandLanding brandLanding = new BrandLanding();
             brandLanding.showInput(user);
+            this.setVisible(false);
         });
 
         addRERulesButton.addActionListener(e -> {
@@ -71,11 +72,9 @@ public class AddRERules extends JFrame {
         reRulesPanel = new JPanel();
         reRuleCode = new JTextField();
         rePoints = new JTextField();
-//        addRERulesButton = new JButton("Add RE Rules");
         rewardRuleCodeEntry = new JLabel("Enter Reward rule code");
         rePointsEntry = new JLabel("Enter RE points");
         activitySelect = new JLabel("Select activity");
-//        goBackButton = new JButton("Go Back");
 
         reRulesPanel.setLayout(new BoxLayout(reRulesPanel, BoxLayout.Y_AXIS));
 

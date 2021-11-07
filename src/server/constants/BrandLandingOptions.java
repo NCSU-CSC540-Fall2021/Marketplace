@@ -8,8 +8,8 @@ public enum BrandLandingOptions {
     ADD_LOYALTY_PROGRAM(1, "Add Loyalty Program"),
     ADD_RE_RULES(2, "Add RE Rules"),
     UPDATE_RE_RULES(3, "Update RE Rules"),
-    UPDATE_RR_RULES(4, "Update RR Rules"),
-    ADD_RR_RULES(5, "Add RR Rules"),
+    ADD_RR_RULES(4, "Add RR Rules"),
+    UPDATE_RR_RULES(5, "Update RR Rules"),
     VALIDATE_LOYALTY_PROGRAM(6, "Validate Loyalty Program"),
     LOGOUT(7, "Logout");
 

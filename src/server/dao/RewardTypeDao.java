@@ -1,10 +1,11 @@
 package server.dao;
 
-import server.entity.ActivityType;
 import server.entity.RewardType;
 import server.utils.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RewardTypeDao {
     public static String TABLENAME = "reward_type";
@@ -52,5 +53,30 @@ public class RewardTypeDao {
         }
         DatabaseConnection.closeDatabaseConnection(connection);
         return response;
+    }
+
+    public List<RewardType> getAllRewards() throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * from " + TABLENAME ;
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+        List<RewardType> rewardTypeList = new ArrayList<>();
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found");
+
+            while(resultSet.next()) {
+                RewardType rewardType = new RewardType();
+                rewardType.setReward_code(resultSet.getString(1));
+                rewardType.setReward_type(resultSet.getString(2));
+                rewardTypeList.add(rewardType);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return rewardTypeList;
     }
 }
