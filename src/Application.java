@@ -10,11 +10,6 @@ public class Application {
         AdminLandingPage adminLandingPage = new AdminLandingPage();
         Homepage homepage = new Homepage();
         homepage.showHomePage();
-
-        CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
-        customerRewardActivitiesCreation.selectRewardActivity();
-
-//        menuOptions.selectMenuOption();
     }
 
 }

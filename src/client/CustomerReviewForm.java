@@ -10,11 +10,10 @@ import java.text.ParseException;
 public class CustomerReviewForm extends JFrame {
     private JTextField username;
     private JTextField brandName;
-    private JTextArea reviewContent;
     private JButton goBackButton;
     private JButton leaveAReviewButton;
     private JPanel leaveAReviewPanel;
-    private JTextField textField1;
+    private JTextField reviewContent;
     private JFrame jFrame;
 
     public CustomerReviewForm() {
