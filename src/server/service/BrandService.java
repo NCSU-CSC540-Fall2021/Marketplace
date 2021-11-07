@@ -10,13 +10,14 @@ import java.util.Date;
 
 public class BrandService {
 
+    private BrandDao brandDao;
     public BrandService() {
     }
 
     public String createBrand(String brandNameText, String brandAddressText,
                               String brandJoinDateText, String brandCreatorIdText, String usernameText) throws ParseException, SQLException {
 
-        BrandDao brandDao = new BrandDao();
+        brandDao = new BrandDao();
         Brand brand = new Brand();
 
         // todo: do all validations here
@@ -37,4 +38,12 @@ public class BrandService {
         return date;
     }
 
+    public Brand getBrandInfoByUserName(String brandUserNameText) throws SQLException {
+        Brand brand = new Brand();
+        brandDao = new BrandDao();
+        brand.setUsername(brandUserNameText);
+
+        brand = brandDao.findBrandInfoByUserName(brand);
+        return brand;
+    }
 }

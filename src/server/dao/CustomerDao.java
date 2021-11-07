@@ -63,4 +63,30 @@ public class CustomerDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return customer;
     }
+
+    public Customer findCustomerInfoByUserName(Customer customer) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * " + TABLENAME + " where username = ? ";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, customer.getUserName());
+
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found");
+
+            while(resultSet.next()) {
+                customer.setId(resultSet.getInt(1));
+                customer.setCname(resultSet.getString(2));
+                customer.setAddress(resultSet.getString(3));
+                customer.setPhone_no(resultSet.getString(4));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return customer;
+    }
 }
