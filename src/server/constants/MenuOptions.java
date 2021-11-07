@@ -4,6 +4,8 @@ public enum MenuOptions {
 
     CREATE_BRAND(1, "Create a brand"),
     CREATE_CUSTOMER(2, "Onboard a customer"),
+    CREATE_ACTIVITY_TYPE(3, "Create activity type"),
+    CREATE_REWARD_TYPE(4, "Create reward type"),
     EXIT(0, "Exit");
 
     public int menuId;
