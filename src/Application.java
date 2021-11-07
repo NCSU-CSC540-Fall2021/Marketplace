@@ -1,3 +1,4 @@
+import client.CustomerRewardActivitiesCreation;
 import client.Homepage;
 import client.AdminLandingPage;
 import server.Marketplace;
@@ -9,8 +10,6 @@ public class Application {
         AdminLandingPage adminLandingPage = new AdminLandingPage();
         Homepage homepage = new Homepage();
         homepage.showHomePage();
-
-//        menuOptions.selectMenuOption();
     }
 
 }

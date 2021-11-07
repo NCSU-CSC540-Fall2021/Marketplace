@@ -55,6 +55,8 @@ public class CustomerLanding extends JFrame implements ActionListener {
                 break;
             case 2 :
                 // reward activity
+                CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+                customerRewardActivitiesCreation.selectRewardActivity();
                 break;
             case 3 :
                 // view wallet

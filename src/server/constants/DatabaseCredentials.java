@@ -10,7 +10,7 @@ public class DatabaseCredentials {
     private static final String password = "V1cky1966!";
 
     // Update driver string information here!
-    private static final String driverString = "com.mysql.cj.jdbc.Driver";
+     private static final String driverString = "com.mysql.cj.jdbc.Driver";
 
 
     public static String getJdbcURL() {
