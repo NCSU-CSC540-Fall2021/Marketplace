@@ -37,9 +37,9 @@ public class ActivityTypeDao {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, activityType.getActivity_code());
         preparedStatement.setString(2, activityType.getActivity_name());
-        preparedStatement.setInt(3, activityType.getCreatedBy());
+        preparedStatement.setString(3, activityType.getCreatedBy());
         preparedStatement.setDate(4, new Date(activityType.getCreatedAt().getTime()));
-        preparedStatement.setInt(5, activityType.getUpdatedBy());
+        preparedStatement.setString(5, activityType.getUpdatedBy());
         String response = "";
         try {
             int i = preparedStatement.executeUpdate();

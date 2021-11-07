@@ -11,15 +11,15 @@ import static server.utils.MarketplaceHelper.getDefaultAdminId;
 public class ActivityTypeService {
     ActivityTypeDao activityTypeDao = new ActivityTypeDao();
 
-    public String createActivityType(String activityNameText) throws SQLException {
+    public String createActivityType(String activityNameText, String userName) throws SQLException {
         String activityCode = generateActivityCode();
 
         ActivityType activityType = new ActivityType();
         activityType.setActivity_name(activityNameText);
         activityType.setActivity_code(activityCode);
-        activityType.setCreatedBy(getDefaultAdminId());
+        activityType.setCreatedBy(userName);
         activityType.setCreatedAt(new Date());
-        activityType.setUpdatedBy(getDefaultAdminId());
+        activityType.setUpdatedBy(userName);
 
         String response = activityTypeDao.createActivity(activityType);
         return response;

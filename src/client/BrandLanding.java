@@ -13,6 +13,7 @@ public class BrandLanding extends JFrame implements ActionListener {
     private JLabel brandTitleBar;
     private JPanel brandLandingPanel;
     private JFrame jFrame;
+    private User user;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -26,6 +27,7 @@ public class BrandLanding extends JFrame implements ActionListener {
     }
 
     public void showInput(User user) {
+        this.user = user;
         jFrame = new JFrame("Brand Landing Page");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setPreferredSize(new Dimension(500, 500));

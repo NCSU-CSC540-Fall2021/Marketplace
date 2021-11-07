@@ -60,6 +60,27 @@ public class AdminLandingPage extends JFrame implements ActionListener {
                 CustomerCreation customerCreation = new CustomerCreation();
                 customerCreation.showFormForInput(user);
                 break;
+            case 3 :
+                // show brand info
+                break;
+            case 4 :
+                // show customer info
+                break;
+            case 5 :
+                // add activity type
+                ActivityTypeCreation activityTypeCreation = new ActivityTypeCreation();
+                activityTypeCreation.showFormForInput(user);
+                break;
+            case 6 :
+                // add reward type
+                RewardTypeCreation rewardTypeCreation = new RewardTypeCreation();
+                rewardTypeCreation.showFormForInput(user);
+                break;
+            case 7 :
+                Homepage homepage = new Homepage();
+                homepage.showHomePage();
+                this.setVisible(false);
+                break;
         }
     }
 }
