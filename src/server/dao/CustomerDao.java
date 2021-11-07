@@ -3,10 +3,7 @@ package server.dao;
 import server.entity.Customer;
 import server.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class CustomerDao {
     public static String TABLENAME = "Customer";
@@ -40,5 +37,30 @@ public class CustomerDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return response;
 
+    }
+
+    public Customer fetchCustomerByUserName(String userName) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * from " + TABLENAME + " where username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, userName);
+        Customer customer = new Customer();
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery(sqlQuery);
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found for the username " + userName);
+
+
+            while (resultSet.next()) {
+                customer.setId(resultSet.getInt(1));
+                customer.setCname(resultSet.getString(2));
+                customer.setPhone_no(resultSet.getString(3));
+                customer.setUserName(resultSet.getString(4));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return customer;
     }
 }
