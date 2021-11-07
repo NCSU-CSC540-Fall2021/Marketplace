@@ -2,7 +2,6 @@ package client;
 
 import server.entity.RewardType;
 import server.entity.User;
-import server.service.RewardEarningService;
 import server.service.RewardRedeemingService;
 
 import javax.swing.*;
