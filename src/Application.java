@@ -1,13 +1,16 @@
-import client.MenuOptions;
+import client.Homepage;
+import client.AdminLandingPage;
 import server.Marketplace;
 
 public class Application {
     public static void main(String[] args) {
 
         Marketplace marketplace = new Marketplace();
-        MenuOptions menuOptions = new MenuOptions();
+        AdminLandingPage adminLandingPage = new AdminLandingPage();
+        Homepage homepage = new Homepage();
+        homepage.showHomePage();
 
-        menuOptions.selectMenuOption();
+//        menuOptions.selectMenuOption();
     }
 
 }

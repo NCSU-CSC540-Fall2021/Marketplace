@@ -2,6 +2,7 @@ package server.service;
 
 import server.dao.CustomerDao;
 import server.entity.Customer;
+import server.entity.User;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -11,6 +12,7 @@ import static server.utils.MarketplaceHelper.getDefaultAdminId;
 
 public class CustomerService {
 
+    CustomerDao customerDao = new CustomerDao();
     public CustomerService() {
 
     }
@@ -18,10 +20,9 @@ public class CustomerService {
     public String createCustomer(String customerName, String address,
                                  String phoneNumber, String customerCreatorId, String usernameText) throws ParseException, SQLException {
 
-        CustomerDao customerDao = new CustomerDao();
+
         Customer customer = new Customer();
 
-        // todo: do all validations here
         customer.setCname(customerName);
         customer.setAddress(address);
         customer.setPhone_no(phoneNumber);
@@ -34,4 +35,9 @@ public class CustomerService {
         return response;
     }
 
+    public Customer fetchCustomerInformation(User user) throws SQLException {
+        String userName = user.getUserName();
+        Customer customer = customerDao.fetchCustomerByUserName(userName);
+        return customer;
+    }
 }
