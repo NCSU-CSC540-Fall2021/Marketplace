@@ -1,13 +1,9 @@
 package server.dao;
 
-import server.entity.Customer;
 import server.entity.User;
 import server.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
     public static String TABLENAME = "User";
@@ -37,5 +33,30 @@ public class UserDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return response;
 
+    }
+
+    public User fetchUser(User user) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+
+        String sqlQuery = "Select *  from " + TABLENAME + " where username = ? and password = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+        preparedStatement.setString(1, user.getUserName());
+        preparedStatement.setString(2, user.getPassword());
+
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found! Please check your credentials");
+
+            while(resultSet.next()) {
+                user.setRole(resultSet.getString(4)); // todo : change according to table structure
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return user;
     }
 }

@@ -1,20 +1,22 @@
 package client;
 
 import server.Marketplace;
+import server.entity.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuOptions extends JFrame implements ActionListener {
+public class AdminLandingPage extends JFrame implements ActionListener {
 
     private JPanel mainMenuPanel;
+    private JLabel adminLandingBar;
     private JComboBox menuCombo;
 
-    public void selectMenuOption() {
+    public void selectMenuOption(User user) {
 
-        this.setTitle("hii welcome to marketplace");
+        this.setTitle("Welcome to marketplace");
         this.setPreferredSize(new Dimension(500, 500));
         this.setResizable(false);
 
@@ -22,7 +24,12 @@ public class MenuOptions extends JFrame implements ActionListener {
         menuCombo = new JComboBox(menuOptions);
         menuCombo.addActionListener(this);
 
-        this.add(menuCombo);
+        adminLandingBar = new JLabel("Welcome to marketplace " + user.getUserName());
+        mainMenuPanel.setLayout(new BoxLayout(mainMenuPanel, BoxLayout.Y_AXIS));
+        mainMenuPanel.add(adminLandingBar);
+        mainMenuPanel.add(menuCombo);
+
+        this.add(mainMenuPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
@@ -32,10 +39,8 @@ public class MenuOptions extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == menuCombo) {
-            System.out.println(menuCombo.getSelectedItem());
             server.constants.MenuOptions selectedItem = (server.constants.MenuOptions) menuCombo.getSelectedItem();
             assert selectedItem != null;
-            System.out.println("after resolving --- " + selectedItem.getMenuId() + " --- " + selectedItem.getMenuDescription());
             performMenuOperation(selectedItem);
         }
     }
