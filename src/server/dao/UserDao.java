@@ -6,7 +6,7 @@ import server.utils.DatabaseConnection;
 import java.sql.*;
 
 public class UserDao {
-    public static String TABLENAME = "User";
+    public static String TABLENAME = "Users";
     public Connection connection;
 
     public String createUser(User user) throws SQLException {
@@ -50,7 +50,7 @@ public class UserDao {
                 throw new SQLException("No data found! Please check your credentials");
 
             while(resultSet.next()) {
-                user.setRole(resultSet.getString(4)); // todo : change according to table structure
+                user.setRole(resultSet.getString(3)); // todo : change according to table structure
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

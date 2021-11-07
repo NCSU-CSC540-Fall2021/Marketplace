@@ -12,7 +12,7 @@ public class CustomerDao {
     public String createCustomer(Customer customer) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
 
-        String sqlQuery = "Insert into " + TABLENAME + "(cname, address, phone_no, username, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?)";
+        String sqlQuery = "Insert into " + TABLENAME + "(customer_name, address, phone_no, username, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, customer.getCname());
@@ -66,7 +66,7 @@ public class CustomerDao {
 
     public Customer findCustomerInfoByUserName(Customer customer) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * " + TABLENAME + " where username = ? ";
+        String sqlQuery = "Select * from " + TABLENAME + " where username = ? ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, customer.getUserName());

@@ -7,12 +7,9 @@ import server.service.UserService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import static server.utils.MarketplaceHelper.getDefaultAdminId;
 
 public class BrandCreation extends JFrame{
     private JPanel brandCreate;
