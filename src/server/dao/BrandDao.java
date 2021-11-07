@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class BrandDao {
 
-    public static String TABLENAME = "Brand";
+    public static String TABLENAME = "brand";
     public Connection connection;
 
     public BrandDao() {
@@ -45,7 +45,7 @@ public class BrandDao {
 
     public Brand findBrandInfoByUserName(Brand brand) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * " + TABLENAME + " where username = ?";
+        String sqlQuery = "Select * from " + TABLENAME + " where username = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         preparedStatement.setString(1, brand.getUsername());
