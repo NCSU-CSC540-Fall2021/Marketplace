@@ -1,6 +1,7 @@
 package client;
 
 import server.constants.Roles;
+import server.entity.User;
 import server.service.BrandService;
 import server.service.CustomerService;
 import server.service.UserService;
@@ -21,9 +22,10 @@ public class CustomerCreation extends JFrame{
     private JTextField username;
     private JTextField password;
     private JButton registerButton;
-    private JTextField adminId;
     private JFrame jFrame;
     private JPanel customerCreate;
+    private JButton goBack;
+    private User user;
 
     public CustomerCreation() {
         registerButton.addActionListener(e -> {
@@ -33,9 +35,22 @@ public class CustomerCreation extends JFrame{
                 ex.printStackTrace();
             }
         });
+        goBack.addActionListener(e -> {
+            if(user == null) {
+                Homepage homepage = new Homepage();
+                homepage.showHomePage();
+                jFrame.setVisible(false);
+            }
+            else {
+                AdminLandingPage adminLandingPage = new AdminLandingPage();
+                adminLandingPage.selectMenuOption(user);
+                jFrame.setVisible(false);
+            }
+        });
     }
 
-    public void showFormForInput() {
+    public void showFormForInput(User user) {
+        this.user = user;
         jFrame = new JFrame("Create Customer");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setPreferredSize(new Dimension(500, 500));
@@ -53,8 +68,7 @@ public class CustomerCreation extends JFrame{
         String phoneNumberText = phoneNumber.getText();
         String usernameText = username.getText();
         String passwordText = password.getText();
-        // Todo: pass the admin values once he is logged in and retrieve the id from there
-        String adminIdText = adminId.getText();
+        String adminIdText = user != null ? user.getUserName() : usernameText;
 
         System.out.println("Submitted successfully " + customerNameText + " " + addressText + " " + phoneNumberText + " " + usernameText + " " + passwordText + " " + adminIdText);
 

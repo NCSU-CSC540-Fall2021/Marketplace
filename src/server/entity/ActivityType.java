@@ -8,9 +8,9 @@ public class ActivityType {
     public String activity_name;
 
     public Byte deleted;
-    public Integer createdBy;
+    public String createdBy;
     public Date createdAt;
-    public Integer updatedBy;
+    public String updatedBy;
     public Timestamp updatedAt;
 
     public String getActivity_code() {
@@ -44,19 +44,19 @@ public class ActivityType {
         this.createdAt = createdAt;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Integer getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 

@@ -1,9 +1,12 @@
 package client;
 
+import server.entity.User;
 import server.service.ActivityTypeService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -13,6 +16,7 @@ public class ActivityTypeCreation extends JFrame{
     private JButton submitButton;
     private JButton goBack;
     private JFrame jFrame;
+    private User user;
 
     public ActivityTypeCreation() {
         submitButton.addActionListener(e -> {
@@ -24,9 +28,14 @@ public class ActivityTypeCreation extends JFrame{
                 ex.printStackTrace();
             }
         });
+        goBack.addActionListener(e -> {
+            AdminLandingPage adminLandingPage = new AdminLandingPage();
+            adminLandingPage.selectMenuOption(user);
+        });
     }
 
-    public void showFormForInput() {
+    public void showFormForInput(User user) {
+        this.user = user;
         jFrame = new JFrame("Create Activity Type");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setPreferredSize(new Dimension(500, 500));
@@ -39,9 +48,10 @@ public class ActivityTypeCreation extends JFrame{
     }
     public void submit() throws ParseException, SQLException {
         String activityNameText = activityName.getText();
+        String userName = user.getUserName();
 
         ActivityTypeService activityTypeService = new ActivityTypeService();
-        String response = activityTypeService.createActivityType(activityNameText);
+        String response = activityTypeService.createActivityType(activityNameText, userName);
 
         JOptionPane.showMessageDialog(this, response);
         jFrame.setVisible(false);

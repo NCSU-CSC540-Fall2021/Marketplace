@@ -19,9 +19,9 @@ public class CustomerDao {
         preparedStatement.setString(2, customer.getAddress());
         preparedStatement.setString(3, customer.getPhone_no());
         preparedStatement.setString(4, customer.getUserName());
-        preparedStatement.setInt(5, customer.getCreatedBy());
+        preparedStatement.setString(5, customer.getCreatedBy());
         preparedStatement.setDate(6, new Date (customer.getCreatedAt().getTime()));
-        preparedStatement.setInt(7, customer.getUpdatedBy());
+        preparedStatement.setString(7, customer.getUpdatedBy());
 
         String response = "";
         try {

@@ -13,6 +13,7 @@ public class Loginpage extends JFrame{
     private JTextField password;
     private JButton login;
     private JPanel loginPage;
+    private JButton goBackButton;
     private JFrame jFrame;
 
     LoginService loginService = new LoginService();
@@ -27,6 +28,10 @@ public class Loginpage extends JFrame{
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        });
+        goBackButton.addActionListener(e -> {
+            Homepage homepage = new Homepage();
+            homepage.showHomePage();
         });
     }
 
@@ -64,6 +69,4 @@ public class Loginpage extends JFrame{
             adminLandingPage.selectMenuOption(user);
         }
     }
-
-
 }
