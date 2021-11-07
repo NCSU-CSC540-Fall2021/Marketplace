@@ -5,8 +5,7 @@ import server.entity.ActivityType;
 
 import java.sql.SQLException;
 import java.util.Date;
-
-import static server.utils.MarketplaceHelper.getDefaultAdminId;
+import java.util.List;
 
 public class ActivityTypeService {
     ActivityTypeDao activityTypeDao = new ActivityTypeDao();
@@ -34,5 +33,11 @@ public class ActivityTypeService {
         String activityCode = "A" + (totalActivitiesCount + 1);
         System.out.println("activity code is " + activityCode);
         return activityCode;
+    }
+
+    public List<ActivityType> getAllActivities() throws SQLException {
+        List<ActivityType> allActivities = activityTypeDao.getAllActivities();
+//        Object[] activityTypes =  allActivities.toArray();
+        return allActivities;
     }
 }

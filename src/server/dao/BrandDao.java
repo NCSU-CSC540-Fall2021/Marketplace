@@ -45,7 +45,7 @@ public class BrandDao {
 
     public Brand findBrandInfoByUserName(Brand brand) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * " + TABLENAME + " where username = ?";
+        String sqlQuery = "Select * from " + TABLENAME + " where username = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
         preparedStatement.setString(1, brand.getUsername());

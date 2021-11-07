@@ -66,7 +66,7 @@ public class CustomerDao {
 
     public Customer findCustomerInfoByUserName(Customer customer) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * " + TABLENAME + " where username = ? ";
+        String sqlQuery = "Select * from " + TABLENAME + " where username = ? ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, customer.getUserName());

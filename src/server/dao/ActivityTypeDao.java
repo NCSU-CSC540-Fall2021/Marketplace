@@ -4,6 +4,8 @@ import server.entity.ActivityType;
 import server.utils.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityTypeDao {
 
@@ -52,5 +54,29 @@ public class ActivityTypeDao {
         }
         DatabaseConnection.closeDatabaseConnection(connection);
         return response;
+    }
+
+    public List<ActivityType> getAllActivities() throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * from " + TABLENAME ;
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+        List<ActivityType> activityTypeList = new ArrayList<>();
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found");
+
+            while(resultSet.next()) {
+                ActivityType activityType = new ActivityType();
+                activityType.setActivity_code(resultSet.getString(1));
+                activityType.setActivity_name(resultSet.getString(2));
+                activityTypeList.add(activityType);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return activityTypeList;
     }
 }
