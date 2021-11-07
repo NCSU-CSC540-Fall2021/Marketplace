@@ -9,9 +9,10 @@ public class Application {
         Marketplace marketplace = new Marketplace();
         AdminLandingPage adminLandingPage = new AdminLandingPage();
         Homepage homepage = new Homepage();
+        homepage.showHomePage();
+
         CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
         customerRewardActivitiesCreation.selectRewardActivity();
-//        homepage.showHomePage();
 
 //        menuOptions.selectMenuOption();
     }
