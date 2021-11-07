@@ -27,9 +27,9 @@ public class CustomerService {
         customer.setAddress(address);
         customer.setPhone_no(phoneNumber);
         customer.setUserName(usernameText);
-        customer.setCreatedBy(customerCreatorId != null ? Integer.valueOf(customerCreatorId) : getDefaultAdminId());
+        customer.setCreatedBy(customerCreatorId);
         customer.setCreatedAt(new Date());
-        customer.setUpdatedBy(customerCreatorId != null ? Integer.valueOf(customerCreatorId) : getDefaultAdminId());
+        customer.setUpdatedBy(customerCreatorId);
 
         String response = customerDao.createCustomer(customer);
         return response;

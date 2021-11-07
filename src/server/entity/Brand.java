@@ -4,31 +4,32 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Brand {
-    public Integer id;
-    public String name;
+    public Integer brand_id;
+    public String brand_name;
     public String address;
     public Date joindate;
+    public String username;
 
     public Byte deleted;
-    public Integer createdBy;
+    public String createdBy;
     public Date createdAt;
-    public Integer updatedBy;
+    public String updatedBy;
     public Timestamp updatedAt;
 
-    public Integer getId() {
-        return id;
+    public Integer getBrand_id() {
+        return brand_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBrand_id(Integer brand_id) {
+        this.brand_id = brand_id;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand_name() {
+        return brand_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
     public String getAddress() {
@@ -63,19 +64,19 @@ public class Brand {
         this.createdAt = createdAt;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Integer getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 
@@ -87,11 +88,19 @@ public class Brand {
         this.updatedAt = updatedAt;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Brand{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + brand_id +
+                ", name='" + brand_name + '\'' +
                 ", address='" + address + '\'' +
                 ", joindate=" + joindate +
                 ", deleted=" + deleted +

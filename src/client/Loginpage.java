@@ -6,6 +6,8 @@ import server.service.LoginService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class Loginpage extends JFrame{
@@ -13,6 +15,7 @@ public class Loginpage extends JFrame{
     private JTextField password;
     private JButton login;
     private JPanel loginPage;
+    private JButton goBackButton;
     private JFrame jFrame;
 
     LoginService loginService = new LoginService();
@@ -27,6 +30,10 @@ public class Loginpage extends JFrame{
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        });
+        goBackButton.addActionListener(e -> {
+            Homepage homepage = new Homepage();
+            homepage.showHomePage();
         });
     }
 

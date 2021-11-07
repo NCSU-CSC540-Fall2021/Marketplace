@@ -2,6 +2,8 @@ package client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Homepage extends JFrame {
     private JButton login;
@@ -13,11 +15,17 @@ public class Homepage extends JFrame {
 
     Loginpage loginpage = new Loginpage();
     ShowQueriesPage showQueriesPage = new ShowQueriesPage();
+    SignupPage signupPage = new SignupPage();
 
     public Homepage() {
         login.addActionListener(e -> navigateToLoginPage());
         exit.addActionListener(e -> System.exit(0));
         showQueries.addActionListener(e -> navigateToShowQueriesPage());
+        signup.addActionListener(e -> navigateToShowSignUpPage());
+    }
+
+    private void navigateToShowSignUpPage() {
+        signupPage.showSignUp();
     }
 
     private void navigateToShowQueriesPage() {

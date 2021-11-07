@@ -13,9 +13,11 @@ public class AdminLandingPage extends JFrame implements ActionListener {
     private JPanel mainMenuPanel;
     private JLabel adminLandingBar;
     private JComboBox menuCombo;
+    private User user;
 
     public void selectMenuOption(User user) {
 
+        this.user = user;
         this.setTitle("Welcome to marketplace");
         this.setPreferredSize(new Dimension(500, 500));
         this.setResizable(false);
@@ -46,12 +48,19 @@ public class AdminLandingPage extends JFrame implements ActionListener {
     }
 
     private void performMenuOperation(server.constants.MenuOptions menuOption) {
-        Marketplace marketplace = new Marketplace();
-        if(menuOption.getMenuId() == 0) {
-            System.exit(0);
-            return;
+        int menuId = menuOption.getMenuId();
+        switch(menuId)
+        {
+            case 1 :
+                // add brand with admin user
+                BrandCreation brandCreation = new BrandCreation();
+                brandCreation.showFormForInput(user);
+                break;
+            case 2 :
+                // add customer with admin user
+                CustomerCreation customerCreation = new CustomerCreation();
+                customerCreation.showFormForInput(user);
+                break;
         }
-        marketplace.performOperation(menuOption.getMenuId());
-
     }
 }

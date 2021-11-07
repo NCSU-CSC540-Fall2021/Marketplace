@@ -14,18 +14,19 @@ public class BrandService {
     }
 
     public String createBrand(String brandNameText, String brandAddressText,
-                              String brandJoinDateText, String brandCreatorIdText) throws ParseException, SQLException {
+                              String brandJoinDateText, String brandCreatorIdText, String usernameText) throws ParseException, SQLException {
 
         BrandDao brandDao = new BrandDao();
         Brand brand = new Brand();
 
         // todo: do all validations here
-        brand.setName(brandNameText);
+        brand.setBrand_name(brandNameText);
         brand.setAddress(brandAddressText);
         brand.setJoindate(convertStringToDate(brandJoinDateText));
-        brand.setCreatedBy(Integer.valueOf(brandCreatorIdText));
+        brand.setUsername(usernameText);
+        brand.setCreatedBy(brandCreatorIdText);
         brand.setCreatedAt(new Date());
-        brand.setUpdatedBy(Integer.valueOf(brandCreatorIdText));
+        brand.setUpdatedBy(brandCreatorIdText);
 
         String response = brandDao.createBrand(brand);
         return response;
