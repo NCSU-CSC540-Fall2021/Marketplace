@@ -17,7 +17,7 @@ public class BrandDao {
     public String createBrand(Brand brand) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
 
-        String sqlQuery = "Insert into " + TABLENAME + "(name, address, joindate, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?)";
+        String sqlQuery = "Insert into " + TABLENAME + "(brand_name, address, joindate, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, brand.getName());

@@ -1,10 +1,8 @@
 package server;
 
-import client.BrandCreation;
-import client.CustomerCreation;
+import client.*;
 import server.constants.MenuOptions;
 import server.dao.BrandDao;
-import server.service.CustomerService;
 
 public class Marketplace {
     BrandDao brandDao;
@@ -34,6 +32,21 @@ public class Marketplace {
             case 2 :
                 CustomerCreation customerCreation = new CustomerCreation();
                 customerCreation.showFormForInput();
+        }
+    }
+
+    public void performRewardActivityLog(int menuOption) {
+        switch (menuOption) {
+            case 1:
+                CustomerPurchaseForm customerPurchaseForm = new CustomerPurchaseForm();
+                customerPurchaseForm.selectPurchase();
+                break;
+            case 2:
+                CustomerReviewForm customerReviewForm = new CustomerReviewForm();
+                customerReviewForm.leaveAReviewForm();
+            case 3:
+                ReferAFriend referAFriend = new ReferAFriend();
+                referAFriend.showReferAFriend();
         }
     }
 }
