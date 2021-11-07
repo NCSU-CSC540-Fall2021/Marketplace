@@ -5,6 +5,7 @@ import server.entity.RewardType;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import static server.utils.MarketplaceHelper.getDefaultAdminId;
 
@@ -35,5 +36,10 @@ public class RewardTypeService {
         String rewardCode = "R" + (totalRewardsCount + 1);
         System.out.println("reward code is " + rewardCode);
         return rewardCode;
+    }
+
+    public List<RewardType> getAllRewards() throws SQLException {
+        List<RewardType> allRewards = rewardTypeDao.getAllRewards();
+        return allRewards;
     }
 }

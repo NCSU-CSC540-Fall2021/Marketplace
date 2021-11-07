@@ -2,8 +2,10 @@ package client;
 
 import server.constants.BrandLandingOptions;
 import server.entity.ActivityType;
+import server.entity.RewardType;
 import server.entity.User;
 import server.service.ActivityTypeService;
+import server.service.RewardTypeService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,17 +71,21 @@ public class BrandLanding extends JFrame implements ActionListener {
                 // get activities, pass brand id
                 ActivityTypeService activityTypeService = new ActivityTypeService();
                 List<ActivityType> allActivities = activityTypeService.getAllActivities();
-                AddRERules addRERulesPage = new AddRERules();
-                addRERulesPage.showInput(user, allActivities);
+                AddRERules addRERules = new AddRERules();
+                addRERules.showInput(user, allActivities);
                 break;
             case 3:
                 // UPDATE_RE_RULES
                 break;
             case 4:
-                // UPDATE_RR_RULES
+                // ADD_RR_RULES
+                RewardTypeService rewardTypeService = new RewardTypeService();
+                List<RewardType> allRewards = rewardTypeService.getAllRewards();
+                AddRRRules addRRRules = new AddRRRules();
+                addRRRules.showInput(user, allRewards);
                 break;
             case 5:
-                // ADD_RR_RULES
+                // UPDATE_RR_RULES
                 break;
             case 6 :
                 // VALIDATE_LOYALTY_PROGRAM
