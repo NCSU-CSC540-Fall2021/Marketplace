@@ -42,4 +42,29 @@ public class BrandDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return response;
     }
+
+    public Brand findBrandInfoByUserName(Brand brand) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select * " + TABLENAME + " where username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+        preparedStatement.setString(1, brand.getUsername());
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst())
+                throw new SQLException("No data found");
+
+            while(resultSet.next()) {
+                brand.setBrand_id(resultSet.getInt(1));
+                brand.setBrand_name(resultSet.getString(2));
+                brand.setAddress(resultSet.getString(3));
+                brand.setJoindate(resultSet.getDate(4));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return brand;
+    }
 }

@@ -1,6 +1,8 @@
 package server.service;
 
+import server.dao.BrandDao;
 import server.dao.CustomerDao;
+import server.entity.Brand;
 import server.entity.Customer;
 import server.entity.User;
 
@@ -38,6 +40,15 @@ public class CustomerService {
     public Customer fetchCustomerInformation(User user) throws SQLException {
         String userName = user.getUserName();
         Customer customer = customerDao.fetchCustomerByUserName(userName);
+        return customer;
+    }
+
+    public Customer getCustomerInfoByUserName(String customerUserNameText) throws SQLException {
+        Customer customer = new Customer();
+        customerDao = new CustomerDao();
+        customer.setUserName(customerUserNameText);
+
+        customer = customerDao.findCustomerInfoByUserName(customer);
         return customer;
     }
 }
