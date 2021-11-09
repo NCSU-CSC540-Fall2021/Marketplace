@@ -1,7 +1,6 @@
 package server.dao;
 
 import server.entity.RewardEarningRules;
-import server.entity.TierSetup;
 import server.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -18,11 +17,11 @@ public class RewardEarningRulesDao {
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Insert into " + TABLENAME + "(reward_earning_code, brand_id, version_number, activity_code, re_points ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(reward_earning_code, loyalty_program_id, version_number, activity_code, re_points ,createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, rewardEarningRules.getRewardEarningCode());
-            preparedStatement.setInt(2, rewardEarningRules.getBrandId());
+            preparedStatement.setInt(2, rewardEarningRules.getLoyaltyProgramId());
             preparedStatement.setInt(3, rewardEarningRules.getVersionNumber());
             preparedStatement.setString(4, rewardEarningRules.getActivityCode());
             preparedStatement.setInt(5, rewardEarningRules.getRePoints());

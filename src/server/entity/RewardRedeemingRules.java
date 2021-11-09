@@ -5,32 +5,42 @@ import java.util.Date;
 
 public class RewardRedeemingRules {
 
-    public Integer rewardRedeemingRules;
-    public Integer brandId;
+    public Integer reward_redeeming_rules_id;
+    public String rewardRedeemingRules; // This is RR_Code (alpha numeric form)
+    public Integer loyaltyProgram;
     public String rewardCode;
     public Integer rrPoints;
     public Integer versionNumber;
     public Integer numberOfInstances;
+
     public Byte deleted;
     public Date createdAt;
     public String createdBy;
     public Timestamp updatedAt;
     public String updatedBy;
 
-    public Integer getRewardRedeemingRules() {
+    public String getRewardRedeemingRules() {
         return rewardRedeemingRules;
     }
 
-    public void setRewardRedeemingRules(Integer rewardRedeemingRules) {
+    public void setRewardRedeemingRules(String rewardRedeemingRules) {
         this.rewardRedeemingRules = rewardRedeemingRules;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Integer getReward_redeeming_rules_id() {
+        return reward_redeeming_rules_id;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setReward_redeeming_rules_id(Integer reward_redeeming_rules_id) {
+        this.reward_redeeming_rules_id = reward_redeeming_rules_id;
+    }
+
+    public Integer getLoyaltyProgram() {
+        return loyaltyProgram;
+    }
+
+    public void setLoyaltyProgram(Integer loyaltyProgram) {
+        this.loyaltyProgram = loyaltyProgram;
     }
 
     public String getRewardCode() {

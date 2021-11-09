@@ -78,23 +78,12 @@ public class LoyaltyProgramPage extends JFrame implements ActionListener {
         numberOfLevels = new JTextField();
 
         loyaltyProgramPanel.setLayout(new BoxLayout(loyaltyProgramPanel, BoxLayout.Y_AXIS));
-//
         loyaltyProgramPanel.add(tierStatusLabel);
         loyaltyProgramPanel.add(tierStatusBox);
         loyaltyProgramPanel.add(numberOfLevelsLabel);
         loyaltyProgramPanel.add(numberOfLevels);
-//        rrRulesPanel.add(rrPointsEntry);
-//        rrRulesPanel.add(rrPoints);
-//        rrRulesPanel.add(rewardSelect);
-//        rrRulesPanel.add(tierStatusBox);
-//        rrRulesPanel.add(rewardInstancesLabel);
-//        rrRulesPanel.add(rewardInstances);
-//        rrRulesPanel.add(addRRRulesButton);
-//        rrRulesPanel.add(goBackButton);
-//
         loyaltyProgramPanel.add(createLoyaltyActivity);
         loyaltyProgramPanel.add(goBackButton);
-//
         this.add(loyaltyProgramPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
