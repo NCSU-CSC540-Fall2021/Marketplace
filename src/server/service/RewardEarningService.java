@@ -12,9 +12,62 @@ import java.util.Date;
 public class RewardEarningService {
     RewardEarningRulesDao rewardEarningRulesDao;
 
-    public String addRewardEarning(String reRuleCodeText, String rePointsText, String activityCode, User user) throws SQLException {
-        RewardEarningRules rewardEarningRules = new RewardEarningRules();
+    public RewardEarningService() {
+        rewardEarningRulesDao = new RewardEarningRulesDao();
+    }
+
+    public String addOrUpdateRewardEarningRules(String reRuleCodeText, String rePointsText, String activityCode,
+                                                User user, Integer type) throws SQLException {
+
+        String response = "";
         LoyaltyProgram loyaltyProgram = getLoyaltyProgramInfo(user);
+        RewardEarningRules rewardEarningRules = null;
+
+        if(type == 1) {
+            // add RE rules
+            rewardEarningRules = addRERules(user, loyaltyProgram, reRuleCodeText, activityCode, rePointsText);
+        }
+        else if(type == 2) {
+            // update RE rules
+
+            // get re rule by loyalty program  + activity
+            rewardEarningRules = getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activityCode);
+
+            // if it doesn't exist throw error
+            if(rewardEarningRules == null) {
+                response = "No RERules exist for loyaltyProgramId " + loyaltyProgram.getLoyaltyProgramId() + " reRuleCode " + reRuleCodeText
+                        + " activityCode " + activityCode;
+                return response;
+            }
+            // else update values and increment version number
+            else {
+                updateRERules(rewardEarningRules, user, rePointsText, reRuleCodeText);
+            }
+        }
+
+        response = rewardEarningRulesDao.createRewardEarningRules(rewardEarningRules, type);
+        return response;
+    }
+
+    private void updateRERules(RewardEarningRules rewardEarningRules, User user, String rePointsText, String reRuleCodeText) {
+        rewardEarningRules.setRePoints(Integer.valueOf(rePointsText));
+        rewardEarningRules.setVersionNumber(rewardEarningRules.getVersionNumber() + 1);
+        rewardEarningRules.setRewardEarningCode(reRuleCodeText);
+
+        rewardEarningRules.setCreatedBy(user.getUserName());
+        rewardEarningRules.setCreatedAt(new Date());
+        rewardEarningRules.setUpdatedBy(user.getUserName());
+    }
+
+    private RewardEarningRules getReRulesByLoyaltyProgramActivityCode(LoyaltyProgram loyaltyProgram, String activityCode) {
+        RewardEarningRules rewardEarningRules = rewardEarningRulesDao.fetchByLoyaltyProgramActivityCode(loyaltyProgram, activityCode);
+        return rewardEarningRules;
+
+    }
+
+    private RewardEarningRules addRERules(User user, LoyaltyProgram loyaltyProgram, String reRuleCodeText,
+                                          String activityCode, String rePointsText) throws SQLException {
+        RewardEarningRules rewardEarningRules = new RewardEarningRules();
 
         rewardEarningRules.setRewardEarningCode(reRuleCodeText);
         rewardEarningRules.setLoyaltyProgramId(loyaltyProgram.getLoyaltyProgramId());
@@ -26,9 +79,7 @@ public class RewardEarningService {
         rewardEarningRules.setCreatedAt(new Date());
         rewardEarningRules.setUpdatedBy(user.getUserName());
 
-        rewardEarningRulesDao = new RewardEarningRulesDao();
-        String response = rewardEarningRulesDao.createRewardEarningRules(rewardEarningRules);
-        return response;
+        return rewardEarningRules;
     }
 
     private LoyaltyProgram getLoyaltyProgramInfo(User user) throws SQLException {

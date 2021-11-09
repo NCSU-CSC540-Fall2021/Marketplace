@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AddRERules extends JFrame {
+public class AddUpdateRERules extends JFrame {
     private JTextField rePoints;
     private JButton addRERulesButton;
     private JButton goBackButton;
@@ -25,8 +25,9 @@ public class AddRERules extends JFrame {
     private JLabel activitySelect;
     Map<String, String> activityNameToCodeMap = new HashMap<>();
     List<ActivityType> activityTypes;
+    private Integer type;
 
-    public AddRERules() {
+    public AddUpdateRERules() {
         goBackButton.addActionListener(e -> {
             BrandLanding brandLanding = new BrandLanding();
             brandLanding.showInput(user);
@@ -51,8 +52,9 @@ public class AddRERules extends JFrame {
         System.out.println(reRuleCodeText);
         System.out.println(rePointsText);
         System.out.println(selectedItem);
+
         RewardEarningService rewardEarningService = new RewardEarningService();
-        String response = rewardEarningService.addRewardEarning(reRuleCodeText, rePointsText, activityCode, user);
+        String response = rewardEarningService.addOrUpdateRewardEarningRules(reRuleCodeText, rePointsText, activityCode, user, type);
 
         JOptionPane.showMessageDialog(this, response);
         this.setVisible(false);
@@ -60,10 +62,16 @@ public class AddRERules extends JFrame {
         brandLanding.showInput(user);
     }
 
-    public void showInput(User user, List<ActivityType> activityTypes) {
+    public void showInput(User user, List<ActivityType> activityTypes, int type) {
         this.user = user;
         this.activityTypes = activityTypes;
-        this.setTitle("Add RE Rules");
+        this.type = type;
+
+        if(type == 1)
+            this.setTitle("Add RE Rules");
+        else if(type == 2)
+            this.setTitle("Update RE Rules");
+
         this.setPreferredSize(new Dimension(500, 500));
         this.setResizable(false);
 

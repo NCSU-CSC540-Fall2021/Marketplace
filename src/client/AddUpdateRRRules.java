@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AddRRRules extends JFrame{
+public class AddUpdateRRRules extends JFrame{
 
     private User user;
     private JTextField rrPoints;
@@ -29,8 +29,9 @@ public class AddRRRules extends JFrame{
 
     Map<String, String> rewardNameToCodeMap = new HashMap<>();
     List<RewardType> rewardTypes;
+    private Integer type;
 
-    public AddRRRules() {
+    public AddUpdateRRRules() {
         goBackButton.addActionListener(e -> {
             BrandLanding brandLanding = new BrandLanding();
             brandLanding.showInput(user);
@@ -46,14 +47,19 @@ public class AddRRRules extends JFrame{
         });
     }
 
-    public void showInput(User user, List<RewardType> rewardTypes) {
+    public void showInput(User user, List<RewardType> rewardTypes, Integer type) {
         this.user = user;
         this.rewardTypes = rewardTypes;
-        this.setTitle("Add RR Rules");
+        this.type = type;
+        if(type == 1)
+            this.setTitle("Add RR Rules");
+        else if(type == 2)
+            this.setTitle("Update RR Rules");
+
         this.setPreferredSize(new Dimension(500, 500));
         this.setResizable(false);
 
-        List<String> rewardTypeNames = rewardTypes.stream().map(RewardType::getReward_type).collect(Collectors.toList());
+        List<String> rewardTypeNames = rewardTypes.stream().map(RewardType::getReward_name).collect(Collectors.toList());
 
         rrActivityBox = new JComboBox(rewardTypeNames.toArray());
         rrRulesPanel = new JPanel();
@@ -91,14 +97,14 @@ public class AddRRRules extends JFrame{
         String rrPointsText = rrPoints.getText();
         Object selectedItem = rrActivityBox.getSelectedItem();
         String rewardInstances = this.rewardInstances.getText();
-        rewardNameToCodeMap = rewardTypes.stream().collect(Collectors.toMap(RewardType::getReward_type, RewardType::getReward_code));
+        rewardNameToCodeMap = rewardTypes.stream().collect(Collectors.toMap(RewardType::getReward_name, RewardType::getReward_code));
         String rewardCode = rewardNameToCodeMap.get(selectedItem);
         System.out.println(rrRuleCodeText);
         System.out.println(rrPointsText);
         System.out.println(selectedItem);
 
         RewardRedeemingService rewardRedeemingService = new RewardRedeemingService();
-        String response = rewardRedeemingService.addRewardRedeeming(rrRuleCodeText, rrPointsText, rewardCode, rewardInstances, user);
+        String response = rewardRedeemingService.addOrUpdateRewardRedeemingRules(rrRuleCodeText, rrPointsText, rewardCode, rewardInstances, user, type);
 
         JOptionPane.showMessageDialog(this, response);
         this.setVisible(false);

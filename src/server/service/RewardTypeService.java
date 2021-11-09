@@ -16,7 +16,7 @@ public class RewardTypeService {
         String rewardCode = generateRewardCode();
 
         RewardType rewardType = new RewardType();
-        rewardType.setReward_type(rewardNameText);
+        rewardType.setReward_name(rewardNameText);
         rewardType.setReward_code(rewardCode);
         rewardType.setCreatedBy(getDefaultAdminId());
         rewardType.setCreatedAt(new Date());

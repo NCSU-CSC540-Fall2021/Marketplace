@@ -1,19 +1,17 @@
 package server.dao;
 
+import server.entity.LoyaltyProgram;
 import server.entity.RewardEarningRules;
 import server.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class RewardEarningRulesDao {
 
     public static String TABLENAME = "reward_earning_rules";
     public Connection connection;
 
-    public String createRewardEarningRules(RewardEarningRules rewardEarningRules){
+    public String createRewardEarningRules(RewardEarningRules rewardEarningRules, Integer type){
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
@@ -32,7 +30,10 @@ public class RewardEarningRulesDao {
             try {
                 int i = preparedStatement.executeUpdate();
                 if (i > 0) {
-                    response = "Reward earning rules created successfully";
+                    if(type == 1)
+                        response = "Reward earning rules created successfully";
+                    else if(type == 2)
+                        response = "Reward earning rules updated successfully";
                 }
             } catch (SQLException exception) {
                 response = exception.getMessage();
@@ -46,4 +47,38 @@ public class RewardEarningRulesDao {
         return response;
     }
 
+    public RewardEarningRules fetchByLoyaltyProgramActivityCode(LoyaltyProgram loyaltyProgram, String activityCode) {
+        RewardEarningRules rewardEarningRules = null;
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "Select * from " + TABLENAME + " where loyalty_program_id = ? " +
+                    "and activity_code = ? order by version_number desc limit 1";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, loyaltyProgram.getLoyaltyProgramId());
+            preparedStatement.setString(2, activityCode);
+            try {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.isBeforeFirst()) {
+                    throw new SQLException("No data found");
+                }
+
+                while(resultSet.next()) {
+                    rewardEarningRules = new RewardEarningRules();
+                    rewardEarningRules.setRewardEarningRulesId(resultSet.getInt(1));
+                    rewardEarningRules.setRewardEarningCode(resultSet.getString(2));
+                    rewardEarningRules.setLoyaltyProgramId(resultSet.getInt(3));
+                    rewardEarningRules.setVersionNumber(resultSet.getInt(4));
+                    rewardEarningRules.setActivityCode(resultSet.getString(5));
+                    rewardEarningRules.setRePoints(resultSet.getInt(6));
+                }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return rewardEarningRules;
+    }
 }
