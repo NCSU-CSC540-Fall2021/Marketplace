@@ -2,6 +2,8 @@ package server.service;
 
 import server.dao.BrandDao;
 import server.entity.Brand;
+import server.entity.LoyaltyProgram;
+import server.entity.User;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -12,12 +14,12 @@ public class BrandService {
 
     private BrandDao brandDao;
     public BrandService() {
+        brandDao = new BrandDao();
     }
 
     public String createBrand(String brandNameText, String brandAddressText,
                               String brandJoinDateText, String brandCreatorIdText, String usernameText) throws ParseException, SQLException {
 
-        brandDao = new BrandDao();
         Brand brand = new Brand();
 
         // todo: do all validations here
@@ -40,10 +42,20 @@ public class BrandService {
 
     public Brand getBrandInfoByUserName(String brandUserNameText) throws SQLException {
         Brand brand = new Brand();
-        brandDao = new BrandDao();
         brand.setUsername(brandUserNameText);
 
         brand = brandDao.findBrandInfoByUserName(brand);
         return brand;
+    }
+
+    public String updateLoyaltyProgramIdForBrand(User user) throws SQLException {
+        Brand brand = getBrandInfoByUserName(user.getUserName());
+
+        LoyaltyProgramService loyaltyProgramService = new LoyaltyProgramService();
+        LoyaltyProgram loyaltyProgram = loyaltyProgramService.fetchLoyaltyProgramByBrand(brand.getBrand_id());
+
+        Integer loyaltyProgramId = loyaltyProgram.getLoyaltyProgramId();
+        String response = brandDao.updateBrandLoyaltyProgram(user, loyaltyProgramId);
+        return response;
     }
 }

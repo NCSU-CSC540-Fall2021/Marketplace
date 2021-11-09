@@ -19,8 +19,8 @@ public class CustomerService {
 
     }
 
-    public String createCustomer(String customerName, String address,
-                                 String phoneNumber, String customerCreatorId, String usernameText) throws ParseException, SQLException {
+    public String createCustomer(String customerName, String phoneNumber, String address,
+                                 String customerCreatorId, String usernameText) throws SQLException {
 
 
         Customer customer = new Customer();

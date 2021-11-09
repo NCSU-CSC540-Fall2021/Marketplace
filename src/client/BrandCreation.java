@@ -78,7 +78,13 @@ public class BrandCreation extends JFrame{
 
         JOptionPane.showMessageDialog(this, response);
         jFrame.setVisible(false);
+        if(user == null) {
+            Homepage homepage = new Homepage();
+            homepage.showHomePage();
+        }
+        else {
+            AdminLandingPage adminLandingPage = new AdminLandingPage();
+            adminLandingPage.selectMenuOption(user);
+        }
     }
-
-
 }

@@ -23,9 +23,7 @@ public class RewardTypeCreation extends JFrame{
         submit.addActionListener(e -> {
             try {
                 submit();
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            } catch (SQLException ex) {
+            } catch (ParseException | SQLException ex) {
                 ex.printStackTrace();
             }
         });
@@ -56,6 +54,8 @@ public class RewardTypeCreation extends JFrame{
         String response = rewardTypeService.createRewardType(rewardNameText);
 
         JOptionPane.showMessageDialog(this, response);
+        AdminLandingPage adminLandingPage = new AdminLandingPage();
+        adminLandingPage.selectMenuOption(user);
         jFrame.setVisible(false);
     }
 }

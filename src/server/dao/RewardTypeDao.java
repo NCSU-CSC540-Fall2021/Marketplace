@@ -33,7 +33,7 @@ public class RewardTypeDao {
 
     public String createReward(RewardType rewardType) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Insert into " + TABLENAME + " (reward_type, reward_code, createdBy, createdAt, updatedBy) values "
+        String sqlQuery = "Insert into " + TABLENAME + " (reward_name, reward_code, createdBy, createdAt, updatedBy) values "
                 + " (?,?,?,?,?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, rewardType.getReward_type());

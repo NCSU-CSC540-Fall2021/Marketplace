@@ -6,7 +6,7 @@ import server.utils.DatabaseConnection;
 import java.sql.*;
 
 public class CustomerDao {
-    public static String TABLENAME = "Customer";
+    public static String TABLENAME = "customer";
     public Connection connection;
 
     public String createCustomer(Customer customer) throws SQLException {
@@ -20,7 +20,7 @@ public class CustomerDao {
         preparedStatement.setString(3, customer.getPhone_no());
         preparedStatement.setString(4, customer.getUserName());
         preparedStatement.setString(5, customer.getCreatedBy());
-        preparedStatement.setDate(6, new Date (customer.getCreatedAt().getTime()));
+        preparedStatement.setDate(6, new Date(customer.getCreatedAt().getTime()));
         preparedStatement.setString(7, customer.getUpdatedBy());
 
         String response = "";
@@ -47,7 +47,7 @@ public class CustomerDao {
         Customer customer = new Customer();
         try {
             ResultSet resultSet = preparedStatement.executeQuery(sqlQuery);
-            if(!resultSet.isBeforeFirst())
+            if (!resultSet.isBeforeFirst())
                 throw new SQLException("No data found for the username " + userName);
 
 
@@ -73,10 +73,10 @@ public class CustomerDao {
 
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(!resultSet.isBeforeFirst())
+            if (!resultSet.isBeforeFirst())
                 throw new SQLException("No data found");
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 customer.setId(resultSet.getInt(1));
                 customer.setCname(resultSet.getString(2));
                 customer.setAddress(resultSet.getString(3));

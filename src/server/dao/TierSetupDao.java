@@ -15,7 +15,7 @@ public class TierSetupDao {
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Insert into " + TABLENAME + "(loyalty_id, tier_level_code, tier_level_name, eligibility_points, multiplier, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(loyalty_id, tier_level_code, tier_level_name, eligibility_points, multiplier, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, tierSetup.getLoyaltyId());

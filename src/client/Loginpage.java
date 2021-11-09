@@ -30,6 +30,7 @@ public class Loginpage extends JFrame{
             }
         });
         goBackButton.addActionListener(e -> {
+            jFrame.setVisible(false);
             Homepage homepage = new Homepage();
             homepage.showHomePage();
         });
@@ -51,22 +52,46 @@ public class Loginpage extends JFrame{
         String usernameText = username.getText();
         String passwordText = password.getText();
 
+        if(usernameText == null || usernameText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username is empty! Please fill that out!");
+            return;
+        }
+
+        if(passwordText == null || passwordText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password is empty! Please fill that out!");
+            return;
+        }
+
         System.out.println("Performing login for " + usernameText + " " + passwordText);
 
         User user = loginService.checkLogin(usernameText, passwordText);
         System.out.println(user.getUserName() + " " + user.getPassword() + " " + user.getRole());
 
-        if(user.getRole().equals(Roles.CUSTOMER.getDesc())) {
-            // go to customer landing page
-            customerLanding.showInput(user);
+        if(user.getRole() == null || user.getRole().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Invalid credentials! Please check again");
+            username.setText("");
+            password.setText("");
+            return;
         }
-        else if(user.getRole().equals(Roles.BRAND.getDesc())) {
-            // go to brand landing page
-            brandLanding.showInput(user);
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Login successful!");
+            if(user.getRole().equals(Roles.CUSTOMER.getDesc())) {
+                // go to customer landing page
+                jFrame.setVisible(false);
+                customerLanding.showInput(user);
+            }
+            else if(user.getRole().equals(Roles.BRAND.getDesc())) {
+                // go to brand landing page
+                jFrame.setVisible(false);
+                brandLanding.showInput(user);
+            }
+            else if(user.getRole().equals(Roles.ADMIN.getDesc())) {
+                // go to admin landing page
+                jFrame.setVisible(false);
+                adminLandingPage.selectMenuOption(user);
+            }
         }
-        else if(user.getRole().equals(Roles.ADMIN.getDesc())) {
-            // go to admin landing page
-            adminLandingPage.selectMenuOption(user);
-        }
+
     }
 }

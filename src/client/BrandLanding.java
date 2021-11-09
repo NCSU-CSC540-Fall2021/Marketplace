@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,6 +35,8 @@ public class BrandLanding extends JFrame implements ActionListener {
                 performMenuOperation(brandLandingOptions);
             } catch (SQLException ex) {
                 ex.printStackTrace();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
             }
         }
     }
@@ -60,11 +63,14 @@ public class BrandLanding extends JFrame implements ActionListener {
         jFrame.setVisible(true);
     }
 
-    private void performMenuOperation(BrandLandingOptions brandLandingOption) throws SQLException {
+    private void performMenuOperation(BrandLandingOptions brandLandingOption) throws SQLException, Throwable {
         int optionId = brandLandingOption.getOptionId();
         switch (optionId) {
             case 1:
                 // ADD_LOYALTY_PROGRAM
+                LoyaltyProgramPage loyaltyProgramPage = new LoyaltyProgramPage();
+                loyaltyProgramPage.showInput(user);
+                jFrame.setVisible(false);
                 break;
             case 2:
                 // ADD_RE_RULES
@@ -73,6 +79,7 @@ public class BrandLanding extends JFrame implements ActionListener {
                 List<ActivityType> allActivities = activityTypeService.getAllActivities();
                 AddRERules addRERules = new AddRERules();
                 addRERules.showInput(user, allActivities);
+                jFrame.setVisible(false);
                 break;
             case 3:
                 // UPDATE_RE_RULES
@@ -83,6 +90,7 @@ public class BrandLanding extends JFrame implements ActionListener {
                 List<RewardType> allRewards = rewardTypeService.getAllRewards();
                 AddRRRules addRRRules = new AddRRRules();
                 addRRRules.showInput(user, allRewards);
+                jFrame.setVisible(false);
                 break;
             case 5:
                 // UPDATE_RR_RULES
@@ -94,6 +102,7 @@ public class BrandLanding extends JFrame implements ActionListener {
                 // logout
                 Homepage homepage = new Homepage();
                 homepage.showHomePage();
+                jFrame.setVisible(false);
                 break;
         }
     }

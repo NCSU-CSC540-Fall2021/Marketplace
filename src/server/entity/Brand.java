@@ -9,6 +9,7 @@ public class Brand {
     public String address;
     public Date joindate;
     public String username;
+    public Integer loyaltyProgramId;
 
     public Byte deleted;
     public String createdBy;
@@ -96,18 +97,11 @@ public class Brand {
         this.username = username;
     }
 
-    @Override
-    public String toString() {
-        return "Brand{" +
-                "id=" + brand_id +
-                ", name='" + brand_name + '\'' +
-                ", address='" + address + '\'' +
-                ", joindate=" + joindate +
-                ", deleted=" + deleted +
-                ", createdBy=" + createdBy +
-                ", createdAt=" + createdAt +
-                ", updatedBy=" + updatedBy +
-                ", updatedAt=" + updatedAt +
-                '}';
+    public Integer getLoyaltyProgramId() {
+        return loyaltyProgramId;
+    }
+
+    public void setLoyaltyProgramId(Integer loyaltyProgramId) {
+        this.loyaltyProgramId = loyaltyProgramId;
     }
 }

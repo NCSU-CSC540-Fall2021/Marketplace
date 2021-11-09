@@ -84,6 +84,7 @@ public class AdminLandingPage extends JFrame implements ActionListener {
                 // add reward type
                 RewardTypeCreation rewardTypeCreation = new RewardTypeCreation();
                 rewardTypeCreation.showFormForInput(user);
+                this.setVisible(false);
                 break;
             case 7 :
                 Homepage homepage = new Homepage();

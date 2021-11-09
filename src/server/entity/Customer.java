@@ -9,6 +9,7 @@ public class Customer {
     public String address;
     public  String phone_no;
     public String userName;
+    public Integer walletId;
 
     public Byte deleted;
     public String createdBy;
@@ -94,6 +95,14 @@ public class Customer {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Integer getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(Integer walletId) {
+        this.walletId = walletId;
     }
 
     @Override

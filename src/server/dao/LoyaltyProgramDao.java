@@ -14,7 +14,7 @@ public class LoyaltyProgramDao {
         String response = "";
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Insert into " + TABLENAME + "(brand_id, tiered, number_of_tiers, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(brand_id, tiered, number_of_tiers, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, loyaltyProgram.getBrandId());
@@ -106,4 +106,33 @@ public class LoyaltyProgramDao {
         return loyaltyProgram;
     }
 
+    public LoyaltyProgram fetchLoyaltyProgramByBrand(Integer brand_id) {
+        LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "Select * from "+ TABLENAME+" where brand_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, brand_id);
+
+            try {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    loyaltyProgram.setLoyaltyProgramId(resultSet.getInt("loyalty_program_id"));
+                    loyaltyProgram.setBrandId(resultSet.getInt("brand_id"));
+                    loyaltyProgram.setTiered(resultSet.getBoolean("tiered"));
+                    loyaltyProgram.setNumberOfTiers(resultSet.getInt("number_of_tiers"));
+                    loyaltyProgram.setCreatedAt(resultSet.getDate("createdAt"));
+                    loyaltyProgram.setCreatedBy(resultSet.getString("createdBy"));
+                    loyaltyProgram.setUpdatedBy(resultSet.getString("updatedBy"));
+                }
+
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return loyaltyProgram;
+    }
 }
