@@ -16,11 +16,11 @@ public class RewardRedeemingService {
         RewardRedeemingRules rewardRedeemingRules = new RewardRedeemingRules();
         Brand brand = getBrandInfo(user);
 
-        // todo: add rrRuleCode column in table and make changes here accordingly
+        rewardRedeemingRules.setRewardRedeemingRules(rrRuleCodeText);
         rewardRedeemingRules.setRrPoints(Integer.valueOf(rrPointsText));
         rewardRedeemingRules.setRewardCode(rewardCode);
         rewardRedeemingRules.setVersionNumber(1);
-        rewardRedeemingRules.setBrandId(brand.getBrand_id());
+        rewardRedeemingRules.setLoyaltyProgram(brand.getBrand_id());
         rewardRedeemingRules.setNumberOfInstances(Integer.valueOf(rewardInstances));
         rewardRedeemingRules.setCreatedBy(user.getUserName());
         rewardRedeemingRules.setCreatedAt(new Date());

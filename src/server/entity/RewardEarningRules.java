@@ -7,10 +7,11 @@ public class RewardEarningRules {
 
     public Integer rewardEarningRulesId;
     public String rewardEarningCode;
-    public Integer brandId;
+    public Integer loyaltyProgramId;
     public Integer versionNumber;
     public String activityCode;
     public Integer rePoints;
+
     public Byte deleted;
     public Date createdAt;
     public String createdBy;
@@ -33,12 +34,12 @@ public class RewardEarningRules {
         this.rewardEarningCode = rewardEarningCode;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Integer getLoyaltyProgramId() {
+        return loyaltyProgramId;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setLoyaltyProgramId(Integer loyaltyProgramId) {
+        this.loyaltyProgramId = loyaltyProgramId;
     }
 
     public Integer getVersionNumber() {

@@ -56,7 +56,8 @@ public class AddRERules extends JFrame {
 
         JOptionPane.showMessageDialog(this, response);
         this.setVisible(false);
-
+        BrandLanding brandLanding = new BrandLanding();
+        brandLanding.showInput(user);
     }
 
     public void showInput(User user, List<ActivityType> activityTypes) {
