@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class RewardType {
-    public String reward_type;
+    public String reward_name;
     public String reward_code;
 
     public Byte deleted;
@@ -13,10 +13,10 @@ public class RewardType {
     public Integer updatedBy;
     public Timestamp updatedAt;
 
-    public String getReward_type(){ return reward_type;}
+    public String getReward_name(){ return reward_name;}
 
-    public void setReward_type(String reward_type) {
-        this.reward_type = reward_type;
+    public void setReward_name(String reward_name) {
+        this.reward_name = reward_name;
     }
 
     public void setReward_code(String reward_code) {

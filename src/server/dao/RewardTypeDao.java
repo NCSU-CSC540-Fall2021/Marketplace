@@ -36,7 +36,7 @@ public class RewardTypeDao {
         String sqlQuery = "Insert into " + TABLENAME + " (reward_name, reward_code, createdBy, createdAt, updatedBy) values "
                 + " (?,?,?,?,?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1, rewardType.getReward_type());
+        preparedStatement.setString(1, rewardType.getReward_name());
         preparedStatement.setString(2, rewardType.getReward_code());
         preparedStatement.setInt(3, rewardType.getCreatedBy());
         preparedStatement.setDate(4, new Date(rewardType.getCreatedAt().getTime()));
@@ -68,8 +68,8 @@ public class RewardTypeDao {
 
             while(resultSet.next()) {
                 RewardType rewardType = new RewardType();
-                rewardType.setReward_code(resultSet.getString(1));
-                rewardType.setReward_type(resultSet.getString(2));
+                rewardType.setReward_name(resultSet.getString(1));
+                rewardType.setReward_code(resultSet.getString(2));
                 rewardTypeList.add(rewardType);
             }
         } catch (SQLException throwables) {
