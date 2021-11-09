@@ -45,7 +45,7 @@ public class TierSetup {
     }
 
     public void setTierLevelName(String tierLevelName) {
-        tierLevelName = tierLevelName;
+        this.tierLevelName = tierLevelName;
     }
 
     public Integer getEligibilityPoints() {
@@ -102,5 +102,22 @@ public class TierSetup {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    @Override
+    public String toString() {
+        return "TierSetup{" +
+                "tierSetupId=" + tierSetupId +
+                ", loyaltyId=" + loyaltyId +
+                ", tierLevelCode=" + tierLevelCode +
+                ", tierLevelName='" + tierLevelName + '\'' +
+                ", eligibilityPoints=" + eligibilityPoints +
+                ", multiplier=" + multiplier +
+                ", deleted=" + deleted +
+                ", createdAt=" + createdAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedAt=" + updatedAt +
+                ", updatedBy='" + updatedBy + '\'' +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import server.dao.ActivityTypeDao;
 import server.entity.ActivityType;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +36,13 @@ public class ActivityTypeService {
         return activityCode;
     }
 
-    public List<ActivityType> getAllActivities() throws SQLException {
-        List<ActivityType> allActivities = activityTypeDao.getAllActivities();
-//        Object[] activityTypes =  allActivities.toArray();
+    public List<ActivityType> getAllActivities() throws Throwable {
+        List<ActivityType> allActivities;
+        try {
+            allActivities = activityTypeDao.getAllActivities();
+        } catch (SQLException sqlException) {
+            throw sqlException;
+        }
         return allActivities;
     }
 }

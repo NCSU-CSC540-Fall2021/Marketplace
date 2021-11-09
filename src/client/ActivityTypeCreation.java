@@ -31,6 +31,7 @@ public class ActivityTypeCreation extends JFrame{
         goBack.addActionListener(e -> {
             AdminLandingPage adminLandingPage = new AdminLandingPage();
             adminLandingPage.selectMenuOption(user);
+            jFrame.setVisible(false);
         });
     }
 
@@ -54,6 +55,8 @@ public class ActivityTypeCreation extends JFrame{
         String response = activityTypeService.createActivityType(activityNameText, userName);
 
         JOptionPane.showMessageDialog(this, response);
+        AdminLandingPage adminLandingPage = new AdminLandingPage();
+        adminLandingPage.selectMenuOption(user);
         jFrame.setVisible(false);
     }
 }

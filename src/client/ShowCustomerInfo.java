@@ -28,7 +28,7 @@ public class ShowCustomerInfo extends JFrame {
         goBackButton.addActionListener(e -> {
             AdminLandingPage adminLandingPage = new AdminLandingPage();
             adminLandingPage.selectMenuOption(user);
-
+            jFrame.setVisible(false);
         });
         showCustomerInfoButton.addActionListener(e -> {
             try {
@@ -59,6 +59,11 @@ public class ShowCustomerInfo extends JFrame {
         // select brand by username
         CustomerService customerService = new CustomerService();
         Customer customer = customerService.getCustomerInfoByUserName(customerUserNameText);
+        if(customer.getId() == null) {
+            JOptionPane.showMessageDialog(this, "No Customer information present for Username " + customerUserNameText);
+            customerUserName.setText("");
+            return;
+        }
 
         // open new page and show table with back button
         // create table object for customer info

@@ -12,19 +12,21 @@ public class SignupPage extends JFrame {
 
     public SignupPage() {
         brandSignup.addActionListener(e -> {
+            jFrame.setVisible(false);
             BrandCreation brandCreation = new BrandCreation();
             brandCreation.showFormForInput(null);
         });
 
         customerSignup.addActionListener(e -> {
+            jFrame.setVisible(false);
             CustomerCreation customerCreation = new CustomerCreation();
             customerCreation.showFormForInput(null);
         });
 
         goBack.addActionListener(e -> {
+            jFrame.setVisible(false);
             Homepage homepage = new Homepage();
             homepage.showHomePage();
-            jFrame.setVisible(false);
         });
     }
 

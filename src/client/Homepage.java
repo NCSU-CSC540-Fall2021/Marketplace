@@ -23,14 +23,17 @@ public class Homepage extends JFrame {
     }
 
     private void navigateToShowSignUpPage() {
+        jFrame.setVisible(false);
         signupPage.showSignUp();
     }
 
     private void navigateToShowQueriesPage() {
+        jFrame.setVisible(false);
         showQueriesPage.selectQueryMenu();
     }
 
     public void navigateToLoginPage() {
+        jFrame.setVisible(false);
         loginpage.showInput();
     }
 

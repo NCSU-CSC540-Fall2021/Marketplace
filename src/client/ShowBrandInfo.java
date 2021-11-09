@@ -55,6 +55,12 @@ public class ShowBrandInfo extends JFrame{
         BrandService brandService = new BrandService();
         Brand brand = brandService.getBrandInfoByUserName(brandUserNameText);
 
+        if(brand.getBrand_id() == null) {
+            JOptionPane.showMessageDialog(this, "No Brand information present for Username " + brandUserNameText);
+            brandUserName.setText("");
+            return;
+        }
+
         // open new page and show table with back button
         // create table object for brand info
         JTable jTable = createTableForBrandInfo(brand);

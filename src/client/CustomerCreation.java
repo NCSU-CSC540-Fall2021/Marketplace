@@ -39,13 +39,12 @@ public class CustomerCreation extends JFrame{
             if(user == null) {
                 Homepage homepage = new Homepage();
                 homepage.showHomePage();
-                jFrame.setVisible(false);
             }
             else {
                 AdminLandingPage adminLandingPage = new AdminLandingPage();
                 adminLandingPage.selectMenuOption(user);
-                jFrame.setVisible(false);
             }
+            jFrame.setVisible(false);
         });
     }
 
@@ -80,5 +79,13 @@ public class CustomerCreation extends JFrame{
 
         JOptionPane.showMessageDialog(this, response);
         jFrame.setVisible(false);
+        if(user == null) {
+            Homepage homepage = new Homepage();
+            homepage.showHomePage();
+        }
+        else {
+            AdminLandingPage adminLandingPage = new AdminLandingPage();
+            adminLandingPage.selectMenuOption(user);
+        }
     }
 }

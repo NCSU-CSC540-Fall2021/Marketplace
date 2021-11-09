@@ -72,7 +72,7 @@ public class AddRERules extends JFrame {
         reRulesPanel = new JPanel();
         reRuleCode = new JTextField();
         rePoints = new JTextField();
-        rewardRuleCodeEntry = new JLabel("Enter Reward rule code");
+        rewardRuleCodeEntry = new JLabel("Enter RE rule code");
         rePointsEntry = new JLabel("Enter RE points");
         activitySelect = new JLabel("Select activity");
 

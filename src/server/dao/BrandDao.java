@@ -1,6 +1,7 @@
 package server.dao;
 
 import server.entity.Brand;
+import server.entity.User;
 import server.utils.DatabaseConnection;
 
 import java.sql.*;
@@ -66,5 +67,27 @@ public class BrandDao {
 
         DatabaseConnection.closeDatabaseConnection(connection);
         return brand;
+    }
+
+    public String updateBrandLoyaltyProgram(User user, Integer loyaltyProgramId) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Update " + TABLENAME + " set loyalty_program_id = ? where username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, loyaltyProgramId);
+        preparedStatement.setString(2, user.getUserName());
+
+        System.out.println(preparedStatement.toString());
+        String response = "";
+        try {
+            int i = preparedStatement.executeUpdate();
+            if (i > 0) {
+                response = "Brand created successfully";
+            }
+        } catch (SQLException exception) {
+            response = exception.getMessage();
+            exception.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return response;
     }
 }
