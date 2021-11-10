@@ -1,6 +1,8 @@
 package client;
 
-import server.service.LoyaltyActivityService;
+import server.dao.ActivityTypeDao;
+import server.entity.*;
+import server.service.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +11,13 @@ import java.text.ParseException;
 
 public class CustomerPurchaseForm extends JFrame {
     private JPanel purchaseOptionsPanel;
-    private JTextField username;
     private JTextField brandName;
     private JTextField giftCardCode;
     private JTextField itemPurchased;
     private JButton goBackButton;
     private JButton purchaseButton;
     private JFrame jFrame;
+    User user;
 
     public CustomerPurchaseForm() {
         purchaseButton.addActionListener(e -> {
@@ -31,7 +33,8 @@ public class CustomerPurchaseForm extends JFrame {
         });
     }
 
-    public void selectPurchase() {
+    public void selectPurchase(User user) {
+        this.user = user;
         jFrame = new JFrame("Customer: Purchase");
         jFrame.setPreferredSize(new Dimension(500, 500));
         jFrame.setResizable(false);
@@ -43,15 +46,34 @@ public class CustomerPurchaseForm extends JFrame {
     }
 
     private void submit() throws ParseException, SQLException {
-        String usernameText = username.getText();
-        String brandNameText = brandName.getText();
-        String giftCard = giftCardCode.getText();
-        String item_Purch = itemPurchased.getText();
+        String activity_code;
+        try {
+            activity_code = new ActivityTypeDao().findActivityCodeByName("Purchased");
+            Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
+            LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
+            RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
 
-        System.out.println("Submitted successfully " + brandNameText + " "+ usernameText + " " + giftCard + " " + item_Purch + " purchased.");
-        LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
-        String resp = loyaltyActivityService.createPurchase(usernameText, brandNameText, giftCard, item_Purch);
+            Customer customer = new CustomerService().getCustomerInfoByUserName(user.getUserName());
 
-        JOptionPane.showMessageDialog(this, resp);
+            String giftCard = giftCardCode.getText();
+            String item_Purchased = itemPurchased.getText();
+
+            LoyaltyActivityLog loyaltyActivityLog = new LoyaltyActivityLog();
+            loyaltyActivityLog.setActivity_code(activity_code);
+            loyaltyActivityLog.setCustomer_id(customer.getId());
+            loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
+            loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
+            loyaltyActivityLog.setSummary(item_Purchased);
+
+            LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
+            String resp = loyaltyActivityService.createPurchase(loyaltyActivityLog);
+
+            JOptionPane.showMessageDialog(this, resp);
+            jFrame.setVisible(false);
+        } catch (SQLException exception) {
+            System.out.println("exception raised.");
+            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
+            jFrame.setVisible(false);
+        }
     }
 }

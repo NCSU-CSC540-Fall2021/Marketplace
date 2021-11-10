@@ -9,8 +9,17 @@ public class LoyaltyActivityLog {
     public String reward_earning_code;
     public Integer customer_id;
     public Integer points_gained;
+    public String summary;
     public Integer deleted;
     public Timestamp updatedAt;
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
     public Integer getLoyalty_activity_log_id() {
         return loyalty_activity_log_id;

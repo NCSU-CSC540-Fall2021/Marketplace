@@ -88,4 +88,25 @@ public class ActivityTypeDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return activityTypeList;
     }
+
+    public String findActivityCodeByName(String activityName) throws SQLException {
+        connection = DatabaseConnection.createDatabaseConnection();
+        String sqlQuery = "Select activity_code from " + TABLENAME + " where activity_name = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, activityName);
+        String activity_code = "";
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.isBeforeFirst()) {
+                throw new SQLException("No Activity FOUND!");
+            }
+            while (resultSet.next()) {
+                activity_code = resultSet.getString(1);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return activity_code;
+    }
 }

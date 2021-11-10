@@ -64,15 +64,15 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
                 break;
             case 1:
                 CustomerPurchaseForm customerPurchaseForm = new CustomerPurchaseForm();
-                customerPurchaseForm.selectPurchase();
+                customerPurchaseForm.selectPurchase(user);
                 break;
             case 2:
                 CustomerReviewForm customerReviewForm = new CustomerReviewForm();
-                customerReviewForm.leaveAReviewForm();
+                customerReviewForm.leaveAReviewForm(user);
                 break;
             case 3:
                 ReferAFriend referAFriend = new ReferAFriend();
-                referAFriend.showReferAFriend();
+                referAFriend.showReferAFriend(user);
                 break;
         }
     }
