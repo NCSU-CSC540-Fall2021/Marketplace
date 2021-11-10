@@ -59,7 +59,7 @@ public class RewardEarningService {
         rewardEarningRules.setUpdatedBy(user.getUserName());
     }
 
-    private RewardEarningRules getReRulesByLoyaltyProgramActivityCode(LoyaltyProgram loyaltyProgram, String activityCode) {
+    public RewardEarningRules getReRulesByLoyaltyProgramActivityCode(LoyaltyProgram loyaltyProgram, String activityCode) {
         RewardEarningRules rewardEarningRules = rewardEarningRulesDao.fetchByLoyaltyProgramActivityCode(loyaltyProgram, activityCode);
         return rewardEarningRules;
 

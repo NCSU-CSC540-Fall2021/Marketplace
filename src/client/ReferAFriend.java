@@ -1,6 +1,8 @@
 package client;
 
-import server.service.LoyaltyActivityService;
+import server.dao.ActivityTypeDao;
+import server.entity.*;
+import server.service.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +12,11 @@ import java.text.ParseException;
 public class ReferAFriend extends JFrame {
     private JButton goBackButton;
     private JButton referAFriendButton;
-    private JTextField username;
     private JTextField brandName;
     private JTextField referDetails;
     private JPanel referAFriendPanel;
     private JFrame jFrame;
+    User user;
 
     public ReferAFriend() {
         goBackButton.addActionListener(e -> {
@@ -30,7 +32,8 @@ public class ReferAFriend extends JFrame {
         });
     }
 
-    public void showReferAFriend() {
+    public void showReferAFriend(User user) {
+        this.user = user;
         jFrame = new JFrame("Customer: Refer a friend");
         jFrame.setPreferredSize(new Dimension(500, 500));
         jFrame.setResizable(false);
@@ -42,14 +45,29 @@ public class ReferAFriend extends JFrame {
     }
 
     private void submit() throws ParseException, SQLException {
-        String usernameText = username.getText();
-        String brandNameText = brandName.getText();
-        String referDetailsText = referDetails.getText();
+        try {
+            String activity_code = new ActivityTypeDao().findActivityCodeByName("Refer A Friend");
+            Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
+            LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
+            RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
+            Customer customer = new CustomerService().getCustomerInfoByUserName(user.getUserName());
 
-        System.out.println("Submitted successfully " + brandNameText + " "+ usernameText + " " + referDetailsText + " purchased.");
-        LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
-        String resp = loyaltyActivityService.referAFriend(usernameText, brandNameText, referDetailsText);
+            LoyaltyActivityLog loyaltyActivityLog = new LoyaltyActivityLog();
+            loyaltyActivityLog.setActivity_code(activity_code);
+            loyaltyActivityLog.setCustomer_id(customer.getId());
+            loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
+            loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
+            loyaltyActivityLog.setSummary(referDetails.getText());
 
-        JOptionPane.showMessageDialog(this, resp);
+            LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
+            String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
+
+            JOptionPane.showMessageDialog(this, resp);
+            jFrame.setVisible(false);
+        } catch (SQLException exception) {
+            System.out.println("exception raised.");
+            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
+            jFrame.setVisible(false);
+        }
     }
 }
