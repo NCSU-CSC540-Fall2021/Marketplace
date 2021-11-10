@@ -99,10 +99,8 @@ public class RewardRedeemingService {
         return rewardRedeemingRules;
     }
 
-    private Brand getBrandInfo(User user) throws SQLException {
-        BrandService brandService = new BrandService();
-        System.out.println("user name -->" + user.getUserName());
-        Brand brand = brandService.getBrandInfoByUserName(user.getUserName());
-        return brand;
+    public Integer getRrRulesCountByLoyaltyProgram(LoyaltyProgram loyaltyProgram) {
+        Integer countByLoyaltyProgram = rewardRedeemingRulesDao.fetchCountByLoyaltyProgram(loyaltyProgram);
+        return countByLoyaltyProgram;
     }
 }

@@ -91,4 +91,9 @@ public class RewardEarningService {
 
         return loyaltyProgram;
     }
+
+    public Integer getReRulesCountByLoyaltyProgram(LoyaltyProgram loyaltyProgram) {
+        Integer countByLoyaltyProgram = rewardEarningRulesDao.fetchCountByLoyaltyProgram(loyaltyProgram);
+        return countByLoyaltyProgram;
+    }
 }
