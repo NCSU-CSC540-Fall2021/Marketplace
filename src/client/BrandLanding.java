@@ -6,6 +6,7 @@ import server.entity.RewardType;
 import server.entity.User;
 import server.service.ActivityTypeService;
 import server.service.RewardTypeService;
+import server.service.ValidateLoyaltyProgramService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,6 +103,9 @@ public class BrandLanding extends JFrame implements ActionListener {
                 break;
             case 6 :
                 // VALIDATE_LOYALTY_PROGRAM
+                ValidateLoyaltyProgramService validateLoyaltyProgramService = new ValidateLoyaltyProgramService();
+                String response = validateLoyaltyProgramService.validateLoyaltyProgram(user);
+                JOptionPane.showMessageDialog(this, response);
                 break;
             case 7:
                 // logout
