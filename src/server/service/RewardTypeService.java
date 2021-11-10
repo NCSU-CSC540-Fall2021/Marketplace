@@ -2,6 +2,7 @@ package server.service;
 
 import server.dao.RewardTypeDao;
 import server.entity.RewardType;
+import server.entity.User;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -12,15 +13,15 @@ import static server.utils.MarketplaceHelper.getDefaultAdminId;
 public class RewardTypeService {
     RewardTypeDao rewardTypeDao = new RewardTypeDao();
 
-    public String createRewardType(String rewardNameText) throws SQLException {
+    public String createRewardType(String rewardNameText, User user) throws SQLException {
         String rewardCode = generateRewardCode();
 
         RewardType rewardType = new RewardType();
         rewardType.setReward_name(rewardNameText);
         rewardType.setReward_code(rewardCode);
-        rewardType.setCreatedBy(getDefaultAdminId());
+        rewardType.setCreatedBy(user.getUserName());
         rewardType.setCreatedAt(new Date());
-        rewardType.setUpdatedBy(getDefaultAdminId());
+        rewardType.setUpdatedBy(user.getUserName());
 
         String response = rewardTypeDao.createReward(rewardType);
         return response;

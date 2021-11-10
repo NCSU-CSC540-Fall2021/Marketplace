@@ -51,7 +51,7 @@ public class RewardTypeCreation extends JFrame{
         String rewardNameText = rewardName.getText();
 
         RewardTypeService rewardTypeService = new RewardTypeService();
-        String response = rewardTypeService.createRewardType(rewardNameText);
+        String response = rewardTypeService.createRewardType(rewardNameText, user);
 
         JOptionPane.showMessageDialog(this, response);
         AdminLandingPage adminLandingPage = new AdminLandingPage();

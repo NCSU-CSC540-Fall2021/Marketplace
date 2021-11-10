@@ -70,11 +70,15 @@ public class BrandCreation extends JFrame{
         System.out.println("Submitted successfully " + brandNameText + " "
                 + brandAddressText + " " + brandJoinDateText + " " + brandCreatorIdText);
 
+        System.out.println("Creating user for brand with username " + usernameText + " and password " + passwordText);
         UserService userService = new UserService();
         userService.createUser(usernameText, passwordText, Roles.BRAND.getDesc());
+        System.out.println("User " + usernameText + " created successfully!");
 
+        System.out.println("Creating brand with username " + usernameText);
         BrandService brandService = new BrandService();
         String response = brandService.createBrand(brandNameText, brandAddressText, brandJoinDateText, brandCreatorIdText, usernameText);
+        System.out.println("Brand created successfully!");
 
         JOptionPane.showMessageDialog(this, response);
         jFrame.setVisible(false);
