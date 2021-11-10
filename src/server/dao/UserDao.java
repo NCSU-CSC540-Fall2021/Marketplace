@@ -10,29 +10,33 @@ public class UserDao {
     public Connection connection;
 
     public String createUser(User user) throws SQLException {
-        connection = DatabaseConnection.createDatabaseConnection();
-
-        String sqlQuery = "Insert into " + TABLENAME + "(username, password, role) values (?,?,?)";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1, user.getUserName());
-        preparedStatement.setString(2, user.getPassword());
-        preparedStatement.setString(3, user.getRole());
-
         String response = "";
         try {
-            int i = preparedStatement.executeUpdate();
-            if (i > 0) {
-                response = "User created successfully";
+
+            connection = DatabaseConnection.createDatabaseConnection();
+
+            String sqlQuery = "Insert into " + TABLENAME + "(username, password, role) values (?,?,?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getRole());
+
+            try {
+                int i = preparedStatement.executeUpdate();
+                if (i > 0) {
+                    response = "User created successfully";
+                }
+            } catch (SQLException exception) {
+                response = exception.getMessage();
+                exception.printStackTrace();
             }
-        } catch (SQLException exception) {
-            response = exception.getMessage();
-            exception.printStackTrace();
+
+            DatabaseConnection.closeDatabaseConnection(connection);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
-
-        DatabaseConnection.closeDatabaseConnection(connection);
         return response;
-
     }
 
     public User fetchUser(User user) throws SQLException {

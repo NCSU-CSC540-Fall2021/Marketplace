@@ -8,9 +8,9 @@ public class RewardType {
     public String reward_code;
 
     public Byte deleted;
-    public Integer createdBy;
+    public String createdBy;
     public Date createdAt;
-    public Integer updatedBy;
+    public String updatedBy;
     public Timestamp updatedAt;
 
     public String getReward_name(){ return reward_name;}
@@ -41,19 +41,19 @@ public class RewardType {
         this.createdAt = createdAt;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Integer getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Integer updatedBy) {
+    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 
