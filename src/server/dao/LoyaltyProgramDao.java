@@ -107,7 +107,7 @@ public class LoyaltyProgramDao {
     }
 
     public LoyaltyProgram fetchLoyaltyProgramByBrand(Integer brand_id) {
-        LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
+        LoyaltyProgram loyaltyProgram = null;
         try {
             connection = DatabaseConnection.createDatabaseConnection();
             String sqlQuery = "Select * from "+ TABLENAME+" where brand_id = ?";
@@ -117,6 +117,7 @@ public class LoyaltyProgramDao {
             try {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
+                    loyaltyProgram = new LoyaltyProgram();
                     loyaltyProgram.setLoyaltyProgramId(resultSet.getInt("loyalty_program_id"));
                     loyaltyProgram.setBrandId(resultSet.getInt("brand_id"));
                     loyaltyProgram.setTiered(resultSet.getBoolean("tiered"));

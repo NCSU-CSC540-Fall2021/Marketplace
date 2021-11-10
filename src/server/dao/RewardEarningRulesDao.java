@@ -81,4 +81,39 @@ public class RewardEarningRulesDao {
         DatabaseConnection.closeDatabaseConnection(connection);
         return rewardEarningRules;
     }
+
+    public Integer fetchCountByLoyaltyProgram(LoyaltyProgram loyaltyProgram) {
+        Integer count = 0;
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "Select count(*) from " + TABLENAME + " where loyalty_program_id = ? " +
+                    "order by version_number desc limit 1";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, loyaltyProgram.getLoyaltyProgramId());
+            try {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.isBeforeFirst()) {
+                    throw new SQLException("No data found");
+                }
+
+                while(resultSet.next()) {
+                    count = resultSet.getInt(1);
+//                    rewardEarningRules = new RewardEarningRules();
+//                    rewardEarningRules.setRewardEarningRulesId(resultSet.getInt(1));
+//                    rewardEarningRules.setRewardEarningCode(resultSet.getString(2));
+//                    rewardEarningRules.setLoyaltyProgramId(resultSet.getInt(3));
+//                    rewardEarningRules.setVersionNumber(resultSet.getInt(4));
+//                    rewardEarningRules.setActivityCode(resultSet.getString(5));
+//                    rewardEarningRules.setRePoints(resultSet.getInt(6));
+                }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        DatabaseConnection.closeDatabaseConnection(connection);
+        return count;
+    }
 }
