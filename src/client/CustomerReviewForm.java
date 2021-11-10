@@ -1,6 +1,8 @@
 package client;
 
-import server.service.LoyaltyActivityService;
+import server.dao.ActivityTypeDao;
+import server.entity.*;
+import server.service.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +15,10 @@ public class CustomerReviewForm extends JFrame {
     private JButton goBackButton;
     private JButton leaveAReviewButton;
     private JPanel leaveAReviewPanel;
+    private JTextField textField1;
     private JTextField reviewContent;
     private JFrame jFrame;
+    User user;
 
     public CustomerReviewForm() {
         leaveAReviewButton.addActionListener(e -> {
@@ -30,7 +34,8 @@ public class CustomerReviewForm extends JFrame {
         });
     }
 
-    public void leaveAReviewForm() {
+    public void leaveAReviewForm(User user) {
+        this.user = user;
         jFrame = new JFrame("Customer: Leave a review");
         jFrame.setPreferredSize(new Dimension(500, 500));
         jFrame.setResizable(false);
@@ -42,12 +47,29 @@ public class CustomerReviewForm extends JFrame {
     }
 
     public void submit() throws ParseException, SQLException {
-        String usernameText = username.getText();
-        String brandNameText = brandName.getText();
-        String reviewText = reviewContent.getText();
+        try {
+            String activity_code = new ActivityTypeDao().findActivityCodeByName("Review");
+            Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
+            LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
+            RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
+            Customer customer = new CustomerService().getCustomerInfoByUserName(user.getUserName());
 
-        System.out.println("Submitted successfully " + brandNameText + " "+ usernameText + " " + reviewText + " Review.");
-        LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
-        String resp = loyaltyActivityService.createReview(usernameText, brandNameText, reviewText);
+            LoyaltyActivityLog loyaltyActivityLog = new LoyaltyActivityLog();
+            loyaltyActivityLog.setActivity_code(activity_code);
+            loyaltyActivityLog.setCustomer_id(customer.getId());
+            loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
+            loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
+            loyaltyActivityLog.setSummary(reviewContent.getText());
+
+            LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
+            String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
+
+            JOptionPane.showMessageDialog(this, resp);
+            jFrame.setVisible(false);
+        } catch (SQLException exception) {
+            System.out.println("exception raised.");
+            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
+            jFrame.setVisible(false);
+        }
     }
 }
