@@ -23,7 +23,12 @@ public class CustomerLoyaltySignUp extends JFrame {
     User user;
 
     public CustomerLoyaltySignUp() {
-        goBackButton.addActionListener(e-> jFrame.setVisible(false));
+        goBackButton.addActionListener(
+                e-> {
+                    CustomerLanding customerLanding = new CustomerLanding();
+                    customerLanding.showInput(user);
+                    jFrame.setVisible(false);
+                });
         enrollButton.addActionListener(e-> {
             try {
                 submit();
@@ -49,13 +54,23 @@ public class CustomerLoyaltySignUp extends JFrame {
         BrandService brandService = new BrandService();
         Brand brand = brandService.getBrandInfoByUserName(brandName.getText());
 
+        if(brand.getLoyaltyProgramId() == null) {
+            JOptionPane.showMessageDialog(this, "No loyalty program setup for " + brand.getBrand_name());
+            CustomerLanding customerLanding = new CustomerLanding();
+            customerLanding.showInput(user);
+            jFrame.setVisible(false);
+            return;
+        }
+
         CustomerService customerService = new CustomerService();
         Customer customer = customerService.getCustomerInfoByUserName(user.getUserName());
 
         MembershipEnrollService membershipEnrollService = new MembershipEnrollService();
-        String resp = membershipEnrollService.enrollCustomer(customer.getId(), brand.getBrand_id());
+        String resp = membershipEnrollService.enrollCustomer(customer.getId(), brand.getLoyaltyProgramId());
 
         JOptionPane.showMessageDialog(this, resp);
+        CustomerLanding customerLanding = new CustomerLanding();
+        customerLanding.showInput(user);
         jFrame.setVisible(false);
     }
 }

@@ -64,6 +64,7 @@ public class BrandDao {
                 brand.setBrand_name(resultSet.getString(2));
                 brand.setAddress(resultSet.getString(3));
                 brand.setJoindate(resultSet.getDate(4));
+                brand.setLoyaltyProgramId(resultSet.getInt(10));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

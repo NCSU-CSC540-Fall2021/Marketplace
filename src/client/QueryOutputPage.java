@@ -14,6 +14,7 @@ public class QueryOutputPage extends JFrame{
         goBack.addActionListener(e -> {
             ShowQueriesPage showQueriesPage = new ShowQueriesPage();
             showQueriesPage.selectQueryMenu();
+            jFrame.setVisible(false);
         });
     }
 

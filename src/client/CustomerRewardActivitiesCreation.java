@@ -65,6 +65,7 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
             case 1:
                 CustomerPurchaseForm customerPurchaseForm = new CustomerPurchaseForm();
                 customerPurchaseForm.selectPurchase(user);
+                this.setVisible(false);
                 break;
             case 2:
                 CustomerReviewForm customerReviewForm = new CustomerReviewForm();

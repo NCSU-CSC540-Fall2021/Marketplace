@@ -1,22 +1,16 @@
 package server.service;
 
-import server.dao.BrandDao;
 import server.dao.CustomerDao;
-import server.entity.Brand;
 import server.entity.Customer;
-import server.entity.User;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Date;
-
-import static server.utils.MarketplaceHelper.getDefaultAdminId;
 
 public class CustomerService {
 
-    CustomerDao customerDao = new CustomerDao();
+    CustomerDao customerDao;
     public CustomerService() {
-
+        customerDao = new CustomerDao();
     }
 
     public String createCustomer(String customerName, String phoneNumber, String address,
@@ -25,7 +19,7 @@ public class CustomerService {
 
         Customer customer = new Customer();
 
-        customer.setCname(customerName);
+        customer.setCustomerName(customerName);
         customer.setAddress(address);
         customer.setPhone_no(phoneNumber);
         customer.setUserName(usernameText);
@@ -37,15 +31,8 @@ public class CustomerService {
         return response;
     }
 
-    public Customer fetchCustomerInformation(User user) throws SQLException {
-        String userName = user.getUserName();
-        Customer customer = customerDao.fetchCustomerByUserName(userName);
-        return customer;
-    }
-
     public Customer getCustomerInfoByUserName(String customerUserNameText) throws SQLException {
         Customer customer = new Customer();
-        customerDao = new CustomerDao();
         customer.setUserName(customerUserNameText);
 
         customer = customerDao.findCustomerInfoByUserName(customer);
