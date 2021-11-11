@@ -52,7 +52,7 @@ public class RewardEarningRulesDao {
         try {
             connection = DatabaseConnection.createDatabaseConnection();
             String sqlQuery = "Select * from " + TABLENAME + " where loyalty_program_id = ? " +
-                    "and activity_code = ? order by version_number desc limit 1";
+                    "and activity_code = ? order by version_number desc FETCH FIRST 1 ROWS ONLY";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, loyaltyProgram.getLoyaltyProgramId());

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Customer {
     public Integer id;
-    public String cname;
+    public String customerName;
     public String address;
     public  String phone_no;
     public String userName;
@@ -25,12 +25,12 @@ public class Customer {
         this.id = id;
     }
 
-    public String getCname() {
-        return cname;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getAddress() {
@@ -109,7 +109,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", cname='" + cname + '\'' +
+                ", cname='" + customerName + '\'' +
                 ", address='" + address + '\'' +
                 ", phone_no='" + phone_no + '\'' +
                 ", userName='" + userName + '\'' +

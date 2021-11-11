@@ -1,6 +1,7 @@
 package client;
 
 import server.constants.ShowQueriesOptions;
+import server.service.ShowQueriesService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -8,7 +9,7 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 public class ShowQueriesPage extends JFrame implements ActionListener {
@@ -22,6 +23,7 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
         goBack.addActionListener(e -> {
             Homepage homepage = new Homepage();
             homepage.showHomePage();
+            jFrame.setVisible(false);
         });
     }
 
@@ -71,23 +73,35 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
     private JTable performMenuOperation(ShowQueriesOptions queryOptionByDescription) {
         int optionId = queryOptionByDescription.getOptionId();
         QueryOutputPage queryOutputPage = new QueryOutputPage();
-
+        ShowQueriesService showQueriesService = new ShowQueriesService();
         System.out.println(optionId);
+        JTable jTable;
         switch (optionId) {
             case 1 :
                 // LIST_CUSTOMERS_NOT_IN_BRAND_02
                 // open next page and render
-                JTable jTable = populateTableForQuery1();
+                Map<String, List<String[]>> resultForQuery1 = showQueriesService.getResultForQuery1();
+                jTable = populateTableForQuery1(resultForQuery1);
                 queryOutputPage.showQuery(jTable);
-
+                jFrame.setVisible(false);
+                break;
             case 2 :
                 // CUSTOMER_LOYALTY_NOT_ACTIVITY
-                return populateTableForQuery2();
+                populateTableForQuery2();
+                break;
             case 3 :
                 // REWARDS_BRAND_01
+                Map<String, List<String>> resultForQuery3 = showQueriesService.getResultForQuery3();
+                jTable = populateTableForQuery3(resultForQuery3);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 4 :
                 // REFER_FRIEND
+                Map<String, List<String>> resultForQuery4 = showQueriesService.getResultForQuery4();
+                jTable = populateTableForQuery4(resultForQuery4);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 5 :
                 // BRAND_01_ACTIVITY_LIST
@@ -105,26 +119,67 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
         return null;
     }
 
+    private JTable populateTableForQuery1(Map<String, List<String[]>> resultForQuery1) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery1.get("column_names");
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+        System.out.println(columns);
+
+        List<String[]> valuesList = resultForQuery1.get("values");
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
+    }
+
+    private JTable populateTableForQuery3(Map<String, List<String>> resultForQuery3) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+        Set<String> strings = resultForQuery3.keySet();
+
+        for (String string : strings) {
+            columns.add(string);
+            List<String> results = resultForQuery3.get(string);
+            for(int i=0;i<results.size(); i++) {
+                values.add(new String[]{results.get(i)});
+            }
+        }
+        System.out.println(values);
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        System.out.println(table);
+        return table;
+    }
+
+    private JTable populateTableForQuery4(Map<String, List<String>> resultForQuery4) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+        Set<String> strings = resultForQuery4.keySet();
+
+        for (String string : strings) {
+            columns.add(string);
+            List<String> results = resultForQuery4.get(string);
+            for(int i=0;i<results.size(); i++) {
+                values.add(new String[]{results.get(i)});
+            }
+        }
+        System.out.println(values);
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        System.out.println(table);
+        return table;
+    }
+
     private JTable populateTableForQuery2() {
         List<String[]> temp = new ArrayList<>();
         temp.add(new String[]{"aa", "hello"});
         temp.add(new String[]{"bb", "hello"});
         temp.add(new String[]{"cc", "hello"});
-
-        List<String> columns = new ArrayList<String>();
-        columns.add("col1");
-        columns.add("col2");
-
-        TableModel tableModel = new DefaultTableModel(temp.toArray(new Object[][] {}), columns.toArray());
-        JTable table = new JTable(tableModel);
-        return table;
-    }
-
-    private JTable populateTableForQuery1() {
-        List<String[]> temp = new ArrayList<>();
-        temp.add(new String[]{"hi", "hello"});
-        temp.add(new String[]{"hi", "hello"});
-        temp.add(new String[]{"hi", "hello"});
 
         List<String> columns = new ArrayList<String>();
         columns.add("col1");

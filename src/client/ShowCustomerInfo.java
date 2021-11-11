@@ -1,17 +1,13 @@
 package client;
 
-import server.entity.Brand;
 import server.entity.Customer;
 import server.entity.User;
-import server.service.BrandService;
 import server.service.CustomerService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +75,7 @@ public class ShowCustomerInfo extends JFrame {
         List<String[]> customerInfo = new ArrayList<>();
         String[] values = new String[5];
         values[0] = String.valueOf(customer.getId());
-        values[1] = customer.getCname();
+        values[1] = customer.getCustomerName();
         values[2] = customer.getAddress();
         values[3] = customer.getPhone_no();
         values[4] = customer.getUserName();
