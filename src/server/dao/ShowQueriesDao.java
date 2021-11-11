@@ -54,6 +54,57 @@ public class ShowQueriesDao {
         return map;
     }
 
+    public Map<String, List<String[]>> getResultForQuery2() {
+        Map<String, List<String []>> map = new HashMap<>();
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "SELECT M.customer_id, M.loyalty_program_id" +
+                    " from membership M" +
+                    " where M.customer_id NOT IN (" +
+                    "    SELECT DISTINCT LAL.customer_id" +
+                    "    from loyalty_activity_log LAL" +
+                    "    INNER JOIN reward_earning_rules rer on LAL.reward_earning_code = rer.reward_earning_code" +
+                    "    where rer.loyalty_program_id = M.loyalty_program_id" +
+                    ")";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            try {
+                List<String []> columnNames = new ArrayList<>();
+                columnNames.add(new String[] {"customer_id", "loyalty_program_id"});
+                map.put("column_names", columnNames);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.isBeforeFirst()) {
+                    throw new SQLException("No data found");
+                }
+
+
+                List<String []> values = new ArrayList<>();
+                while (resultSet.next()) {
+                    System.out.println("Result for query 1 -- " + resultSet.getInt(1) + " -- "
+                            + resultSet.getString(2));
+
+                    values.add(new String[]
+                            {
+                                    String.valueOf(resultSet.getInt(1)),
+                                    String.valueOf(resultSet.getInt(2))
+                            });
+                }
+
+                map.put("values", values);
+            } catch (SQLException exception) {
+
+                exception.printStackTrace();
+            }
+
+            DatabaseConnection.closeDatabaseConnection(connection);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return map;
+    }
+
     public Map<String, List<String>> getResultForQuery3() {
         Map<String, List<String>> map = new HashMap<>();
         try {
@@ -122,4 +173,52 @@ public class ShowQueriesDao {
         return map;
     }
 
+    public Map<String, List<String[]>> getResultForQuery5() {
+        Map<String, List<String []>> map = new HashMap<>();
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "SELECT lal.ACTIVITY_CODE, COUNT(*) " +
+                    "from loyalty_activity_log lal " +
+                    "INNER JOIN reward_earning_rules rer on lal.reward_earning_code = rer.reward_earning_code " +
+                    "INNER JOIN brand b on rer.loyalty_program_id = b.loyalty_program_id " +
+                    "where b.brand_name = 'BrandX' " +
+                    "GROUP BY lal.ACTIVITY_CODE order by ACTIVITY_CODE";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            try {
+                List<String []> columnNames = new ArrayList<>();
+                columnNames.add(new String[] {"activity_code", "count"});
+                map.put("column_names", columnNames);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.isBeforeFirst()) {
+                    throw new SQLException("No data found");
+                }
+
+
+                List<String []> values = new ArrayList<>();
+                while (resultSet.next()) {
+                    System.out.println("Result for query 1 -- " + resultSet.getString(1) + " -- "
+                            + resultSet.getInt(2));
+
+                    values.add(new String[]
+                            {
+                                   resultSet.getString(1),
+                                    String.valueOf(resultSet.getInt(2))
+                            });
+                }
+
+                map.put("values", values);
+            } catch (SQLException exception) {
+
+                exception.printStackTrace();
+            }
+
+            DatabaseConnection.closeDatabaseConnection(connection);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return map;
+    }
 }

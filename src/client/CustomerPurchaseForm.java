@@ -28,6 +28,8 @@ public class CustomerPurchaseForm extends JFrame {
             }
         });
         goBackButton.addActionListener(e -> {
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             System.out.println("Going Back.");
             jFrame.setVisible(false);
         });
@@ -68,11 +70,14 @@ public class CustomerPurchaseForm extends JFrame {
             loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(item_Purchased);
+            loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createPurchase(loyaltyActivityLog);
 
             JOptionPane.showMessageDialog(this, resp);
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         } catch (SQLException exception) {
             System.out.println("exception raised.");

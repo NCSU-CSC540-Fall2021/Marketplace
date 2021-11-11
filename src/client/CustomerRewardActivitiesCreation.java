@@ -14,8 +14,8 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
 
     enum RewardOptions {
         PURCHASE(1, "Purchase"),
-        LEAVE_A_REVIEW(2, "Leave a Review"),
-        REFER_A_FRIEND(3, "Refer a Friend"),
+        LEAVE_A_REVIEW(2, "Write a review"),
+        REFER_A_FRIEND(3, "Refer a friend"),
         BACK(0, "Exit");
 
         public int menuId;
@@ -50,6 +50,7 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == rewardActivities) {
+            // todo: have to change
             RewardOptions selectedItem = (RewardOptions) rewardActivities.getSelectedItem();
             System.out.println(selectedItem.getMenuDescription());
             assert selectedItem != null;
@@ -60,6 +61,8 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
     private void performMenuOperation(RewardOptions selectedItem) {
         switch(selectedItem.getMenuId()) {
             case 0:
+                CustomerLanding customerLanding = new CustomerLanding();
+                customerLanding.showInput(user);
                 this.setVisible(false);
                 break;
             case 1:
@@ -70,10 +73,12 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
             case 2:
                 CustomerReviewForm customerReviewForm = new CustomerReviewForm();
                 customerReviewForm.leaveAReviewForm(user);
+                this.setVisible(false);
                 break;
             case 3:
                 ReferAFriend referAFriend = new ReferAFriend();
                 referAFriend.showReferAFriend(user);
+                this.setVisible(false);
                 break;
         }
     }

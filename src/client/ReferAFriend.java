@@ -20,7 +20,8 @@ public class ReferAFriend extends JFrame {
 
     public ReferAFriend() {
         goBackButton.addActionListener(e -> {
-            System.out.println("Going Back.");
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         });
         referAFriendButton.addActionListener(e -> {
@@ -46,7 +47,7 @@ public class ReferAFriend extends JFrame {
 
     private void submit() throws ParseException, SQLException {
         try {
-            String activity_code = new ActivityTypeDao().findActivityCodeByName("Refer A Friend");
+            String activity_code = new ActivityTypeDao().findActivityCodeByName("Refer a friend");
             Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
             LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
             RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
@@ -58,11 +59,14 @@ public class ReferAFriend extends JFrame {
             loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(referDetails.getText());
+            loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
 
             JOptionPane.showMessageDialog(this, resp);
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         } catch (SQLException exception) {
             System.out.println("exception raised.");

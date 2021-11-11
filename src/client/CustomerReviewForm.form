@@ -50,7 +50,7 @@
           <text value="Leave a Review"/>
         </properties>
       </component>
-      <component id="584de" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="584de" class="javax.swing.JTextField" binding="reviewContent">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

@@ -15,7 +15,6 @@ public class CustomerReviewForm extends JFrame {
     private JButton goBackButton;
     private JButton leaveAReviewButton;
     private JPanel leaveAReviewPanel;
-    private JTextField textField1;
     private JTextField reviewContent;
     private JFrame jFrame;
     User user;
@@ -29,7 +28,8 @@ public class CustomerReviewForm extends JFrame {
             }
         });
         goBackButton.addActionListener(e-> {
-            System.out.println("Going Back.");
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         });
     }
@@ -48,7 +48,7 @@ public class CustomerReviewForm extends JFrame {
 
     public void submit() throws ParseException, SQLException {
         try {
-            String activity_code = new ActivityTypeDao().findActivityCodeByName("Review");
+            String activity_code = new ActivityTypeDao().findActivityCodeByName("Write a review");
             Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
             LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
             RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
@@ -60,11 +60,14 @@ public class CustomerReviewForm extends JFrame {
             loyaltyActivityLog.setReward_earning_code(rewardEarningRules.getRewardEarningCode());
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(reviewContent.getText());
+            loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
 
             JOptionPane.showMessageDialog(this, resp);
+            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         } catch (SQLException exception) {
             System.out.println("exception raised.");
