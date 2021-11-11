@@ -15,13 +15,15 @@ public class LoyaltyActivityLogDao {
     public String createLoyaltyActivityLog(LoyaltyActivityLog loyaltyActivityLog) throws SQLException {
         connection = DatabaseConnection.createDatabaseConnection();
 
-        String sqlQuery = "Insert into " + TABLENAME + "(activity_code, reward_earning_code, customer_id, points_gained) values (?,?,?,?)";
+        String sqlQuery = "Insert into " + TABLENAME + "(activity_code, reward_earning_code, customer_id, points_gained, summary) " +
+                "values (?,?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, loyaltyActivityLog.getActivity_code());
         preparedStatement.setString(2, loyaltyActivityLog.getReward_earning_code());
         preparedStatement.setInt(3, loyaltyActivityLog.getCustomer_id());
         preparedStatement.setInt(4, loyaltyActivityLog.getPoints_gained());
+        preparedStatement.setString(5, loyaltyActivityLog.getSummary());
 
         String resp = "";
         try {

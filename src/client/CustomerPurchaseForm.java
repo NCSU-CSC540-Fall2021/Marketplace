@@ -48,15 +48,19 @@ public class CustomerPurchaseForm extends JFrame {
     private void submit() throws ParseException, SQLException {
         String activity_code;
         try {
-            activity_code = new ActivityTypeDao().findActivityCodeByName("Purchased");
+            activity_code = new ActivityTypeDao().findActivityCodeByName("Purchase");
+            System.out.println("activity code obtained " + activity_code);
+
             Brand brand = new BrandService().getBrandInfoByUserName(brandName.getText());
             LoyaltyProgram loyaltyProgram = new LoyaltyProgramService().fetchLoyaltyProgramByBrand(brand.getBrand_id());
             RewardEarningRules rewardEarningRules = new RewardEarningService().getReRulesByLoyaltyProgramActivityCode(loyaltyProgram, activity_code);
+            System.out.println("Reward earning rule code obtained " + rewardEarningRules.getRewardEarningCode());
 
             Customer customer = new CustomerService().getCustomerInfoByUserName(user.getUserName());
 
             String giftCard = giftCardCode.getText();
             String item_Purchased = itemPurchased.getText();
+            System.out.println("Item purchased " + item_Purchased);
 
             LoyaltyActivityLog loyaltyActivityLog = new LoyaltyActivityLog();
             loyaltyActivityLog.setActivity_code(activity_code);

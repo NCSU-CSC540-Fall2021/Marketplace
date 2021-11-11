@@ -43,7 +43,6 @@ public class BrandService {
     public Brand getBrandInfoByUserName(String brandUserNameText) throws SQLException {
         Brand brand = new Brand();
         brand.setUsername(brandUserNameText);
-
         brand = brandDao.findBrandInfoByUserName(brand);
         return brand;
     }

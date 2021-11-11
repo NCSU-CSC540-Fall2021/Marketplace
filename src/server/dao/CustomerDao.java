@@ -17,7 +17,7 @@ public class CustomerDao {
             String sqlQuery = "Insert into " + TABLENAME + "(customer_name, address, phone_no, username, createdBy, createdAt, updatedBy) values (?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, customer.getCname());
+            preparedStatement.setString(1, customer.getCustomerName());
             preparedStatement.setString(2, customer.getAddress());
             preparedStatement.setString(3, customer.getPhone_no());
             preparedStatement.setString(4, customer.getUserName());
@@ -42,54 +42,32 @@ public class CustomerDao {
         return response;
     }
 
-    public Customer fetchCustomerByUserName(String userName) throws SQLException {
-        connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * from " + TABLENAME + " where username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1, userName);
-        Customer customer = new Customer();
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery(sqlQuery);
-            if (!resultSet.isBeforeFirst())
-                throw new SQLException("No data found for the username " + userName);
-
-
-            while (resultSet.next()) {
-                customer.setId(resultSet.getInt(1));
-                customer.setCname(resultSet.getString(2));
-                customer.setPhone_no(resultSet.getString(3));
-                customer.setUserName(resultSet.getString(4));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DatabaseConnection.closeDatabaseConnection(connection);
-        return customer;
-    }
-
     public Customer findCustomerInfoByUserName(Customer customer) throws SQLException {
-        connection = DatabaseConnection.createDatabaseConnection();
-        String sqlQuery = "Select * from " + TABLENAME + " where username = ? ";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1, customer.getUserName());
-
         try {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (!resultSet.isBeforeFirst())
-                throw new SQLException("No data found");
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "Select * from " + TABLENAME + " where username = ? ";
 
-            while (resultSet.next()) {
-                customer.setId(resultSet.getInt(1));
-                customer.setCname(resultSet.getString(2));
-                customer.setAddress(resultSet.getString(3));
-                customer.setPhone_no(resultSet.getString(4));
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, customer.getUserName());
+
+            try {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (!resultSet.isBeforeFirst())
+                    throw new SQLException("No data found");
+
+                while (resultSet.next()) {
+                    customer.setId(resultSet.getInt(1));
+                    customer.setCustomerName(resultSet.getString(2));
+                    customer.setAddress(resultSet.getString(3));
+                    customer.setPhone_no(resultSet.getString(4));
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            DatabaseConnection.closeDatabaseConnection(connection);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
-
-        DatabaseConnection.closeDatabaseConnection(connection);
         return customer;
     }
 }
