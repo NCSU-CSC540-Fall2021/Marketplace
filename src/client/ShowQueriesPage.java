@@ -87,7 +87,10 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
                 break;
             case 2 :
                 // CUSTOMER_LOYALTY_NOT_ACTIVITY
-                populateTableForQuery2();
+                Map<String, List<String[]>> resultForQuery2 = showQueriesService.getResultForQuery2();
+                jTable = populateTableForQuery2(resultForQuery2);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 3 :
                 // REWARDS_BRAND_01
@@ -105,6 +108,10 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
                 break;
             case 5 :
                 // BRAND_01_ACTIVITY_LIST
+                Map<String, List<String[]>> resultForQuery5 = showQueriesService.getResultForQuery5();
+                jTable = populateTableForQuery5(resultForQuery5);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 6 :
                 // CUSTOMER_REDEEMED_BRAND_01
@@ -119,17 +126,52 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
         return null;
     }
 
-    private JTable populateTableForQuery1(Map<String, List<String[]>> resultForQuery1) {
+    private JTable populateTableForQuery5(Map<String, List<String[]>> resultForQuery5) {
         List<String> columns = new ArrayList<String>();
         List<String[]> values = new ArrayList<>();
 
-        List<String[]> column_names = resultForQuery1.get("column_names");
+        List<String[]> column_names = resultForQuery5.getOrDefault("column_names", new ArrayList<>());
         for (String[] column_name : column_names) {
             columns.addAll(Arrays.asList(column_name));
         }
         System.out.println(columns);
 
-        List<String[]> valuesList = resultForQuery1.get("values");
+        List<String[]> valuesList = resultForQuery5.getOrDefault("values", new ArrayList<>());
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
+    }
+
+    private JTable populateTableForQuery1(Map<String, List<String[]>> resultForQuery1) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery1.getOrDefault("column_names", new ArrayList<>());
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+        System.out.println(columns);
+
+        List<String[]> valuesList = resultForQuery1.getOrDefault("values", new ArrayList<>());
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
+    }
+
+    private JTable populateTableForQuery2(Map<String, List<String[]>> resultForQuery2) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery2.getOrDefault("column_names", new ArrayList<>());
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+
+        List<String[]> valuesList = resultForQuery2.getOrDefault("values", new ArrayList<>());
         values.addAll(valuesList);
 
         TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
@@ -144,7 +186,7 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
 
         for (String string : strings) {
             columns.add(string);
-            List<String> results = resultForQuery3.get(string);
+            List<String> results = resultForQuery3.getOrDefault(string, new ArrayList<>());
             for(int i=0;i<results.size(); i++) {
                 values.add(new String[]{results.get(i)});
             }
@@ -163,7 +205,7 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
 
         for (String string : strings) {
             columns.add(string);
-            List<String> results = resultForQuery4.get(string);
+            List<String> results = resultForQuery4.getOrDefault(string, new ArrayList<>());
             for(int i=0;i<results.size(); i++) {
                 values.add(new String[]{results.get(i)});
             }
@@ -172,21 +214,6 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
         TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
         JTable table = new JTable(tableModel);
         System.out.println(table);
-        return table;
-    }
-
-    private JTable populateTableForQuery2() {
-        List<String[]> temp = new ArrayList<>();
-        temp.add(new String[]{"aa", "hello"});
-        temp.add(new String[]{"bb", "hello"});
-        temp.add(new String[]{"cc", "hello"});
-
-        List<String> columns = new ArrayList<String>();
-        columns.add("col1");
-        columns.add("col2");
-
-        TableModel tableModel = new DefaultTableModel(temp.toArray(new Object[][] {}), columns.toArray());
-        JTable table = new JTable(tableModel);
         return table;
     }
 }

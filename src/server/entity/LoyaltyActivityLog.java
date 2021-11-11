@@ -9,6 +9,8 @@ public class LoyaltyActivityLog {
     public String reward_earning_code;
     public Integer customer_id;
     public Integer points_gained;
+    public Integer loyalty_program_id;
+
     public String summary;
     public Integer deleted;
     public Timestamp updatedAt;
@@ -77,4 +79,11 @@ public class LoyaltyActivityLog {
         this.updatedAt = updatedAt;
     }
 
+    public Integer getLoyalty_program_id() {
+        return loyalty_program_id;
+    }
+
+    public void setLoyalty_program_id(Integer loyalty_program_id) {
+        this.loyalty_program_id = loyalty_program_id;
+    }
 }
