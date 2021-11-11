@@ -34,7 +34,6 @@ public class CustomerDao {
                 response = exception.getMessage();
                 exception.printStackTrace();
             }
-
             DatabaseConnection.closeDatabaseConnection(connection);
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
