@@ -7,14 +7,58 @@ public class RewardActivityLog {
     public Integer reward_activity_log_id;
     public String reward_instance_code;
     public Integer customer_id;
-    public Integer brand_id;
+    public Integer loyalty_program_id;
     public Date start_date;
     public Date end_date;
     public String rr_code;
     public Integer expired;
+    public Integer points_redeemed;
     public Integer redeemed;
     public Integer deleted;
+    public Date createdAt;
+    public String createdBy;
     public Timestamp updatedAt;
+    public String updatedBy;
+
+    public Integer getLoyalty_program_id() {
+        return loyalty_program_id;
+    }
+
+    public void setLoyalty_program_id(Integer loyalty_program_id) {
+        this.loyalty_program_id = loyalty_program_id;
+    }
+
+    public Integer getPoints_redeemed() {
+        return points_redeemed;
+    }
+
+    public void setPoints_redeemed(Integer points_redeemed) {
+        this.points_redeemed = points_redeemed;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public Integer getReward_activity_log_id() {
         return reward_activity_log_id;
@@ -38,14 +82,6 @@ public class RewardActivityLog {
 
     public void setCustomer_id(Integer customer_id) {
         this.customer_id = customer_id;
-    }
-
-    public Integer getBrand_id() {
-        return brand_id;
-    }
-
-    public void setBrand_id(Integer brand_id) {
-        this.brand_id = brand_id;
     }
 
     public Date getStart_date() {
