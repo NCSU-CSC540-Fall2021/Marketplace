@@ -17,8 +17,8 @@ public class LoyaltyActivityLogDao {
         try {
             connection = DatabaseConnection.createDatabaseConnection();
 
-            String sqlQuery = "Insert into " + TABLENAME + "(activity_code, reward_earning_code, customer_id, points_gained, summary, loyalty_program_id) " +
-                    "values (?,?,?,?,?,?)";
+            String sqlQuery = "Insert into " + TABLENAME + "(activity_code, reward_earning_code, customer_id, points_gained, summary, loyalty_program_id, created_at) " +
+                    "values (?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, loyaltyActivityLog.getActivity_code());
@@ -27,6 +27,7 @@ public class LoyaltyActivityLogDao {
             preparedStatement.setInt(4, loyaltyActivityLog.getPoints_gained());
             preparedStatement.setString(5, loyaltyActivityLog.getSummary());
             preparedStatement.setInt(6, loyaltyActivityLog.getLoyalty_program_id());
+            preparedStatement.setDate(7, new Date(loyaltyActivityLog.getCreated_at().getTime()));
 
             try {
                 if (preparedStatement.executeUpdate() > 0) {

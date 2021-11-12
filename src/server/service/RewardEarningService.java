@@ -62,7 +62,6 @@ public class RewardEarningService {
     public RewardEarningRules getReRulesByLoyaltyProgramActivityCode(LoyaltyProgram loyaltyProgram, String activityCode) {
         RewardEarningRules rewardEarningRules = rewardEarningRulesDao.fetchByLoyaltyProgramActivityCode(loyaltyProgram, activityCode);
         return rewardEarningRules;
-
     }
 
     private RewardEarningRules addRERules(User user, LoyaltyProgram loyaltyProgram, String reRuleCodeText,
