@@ -56,17 +56,6 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
             System.out.println(selectedItem);
             ShowQueriesOptions queryOptionByDescription = ShowQueriesOptions.getQueryOptionByDescription(selectedItem);
             performMenuOperation(queryOptionByDescription);
-//            JTable jTable = performMenuOperation(queryOptionByDescription);
-//
-//            //create table
-//            jTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
-//            jTable.setFillsViewportHeight(true);
-//            JScrollPane scrollPane = new JScrollPane(jTable);
-//            showQueriesPanel.add(scrollPane);
-//            jFrame.add(showQueriesPanel);
-//            jFrame.pack();
-//            jFrame.setLocationRelativeTo(null);
-//            jFrame.setVisible(true);
         }
     }
 
@@ -118,12 +107,56 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
                 break;
             case 7 :
                 // BRANDS_TOTAL_REDEEMED_LT_500
+                Map<String, List<String[]>> resultForQuery7 = showQueriesService.getResultForQuery7();
+                jTable = populateTableForQuery7(resultForQuery7);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 8 :
                 // CUSTOMER_BRAND_NO_OF_ACTIVITIES_DATE
+                Map<String, List<String[]>> resultForQuery8 = showQueriesService.getResultForQuery8();
+                jTable = populateTableForQuery8(resultForQuery8);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
         }
         return null;
+    }
+
+    private JTable populateTableForQuery8(Map<String, List<String[]>> resultForQuery8) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery8.getOrDefault("column_names", new ArrayList<>());
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+        System.out.println(columns);
+
+        List<String[]> valuesList = resultForQuery8.getOrDefault("values", new ArrayList<>());
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
+    }
+
+    private JTable populateTableForQuery7(Map<String, List<String[]>> resultForQuery7) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery7.getOrDefault("column_names", new ArrayList<>());
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+        System.out.println(columns);
+
+        List<String[]> valuesList = resultForQuery7.getOrDefault("values", new ArrayList<>());
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
     }
 
     private JTable populateTableForQuery5(Map<String, List<String[]>> resultForQuery5) {
