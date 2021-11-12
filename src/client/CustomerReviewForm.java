@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CustomerReviewForm extends JFrame {
     private JTextField username;
@@ -16,6 +17,7 @@ public class CustomerReviewForm extends JFrame {
     private JButton leaveAReviewButton;
     private JPanel leaveAReviewPanel;
     private JTextField reviewContent;
+    private JTextField dateField;
     private JFrame jFrame;
     User user;
 
@@ -23,8 +25,10 @@ public class CustomerReviewForm extends JFrame {
         leaveAReviewButton.addActionListener(e -> {
             try {
                 submit();
-            } catch (ParseException|SQLException ex) {
+            } catch (ParseException|SQLException|NullPointerException ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "This activity is not supported by this brand's loyalty program.");
+                jFrame.setVisible(false);
             }
         });
         goBackButton.addActionListener(e-> {
@@ -61,6 +65,7 @@ public class CustomerReviewForm extends JFrame {
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(reviewContent.getText());
             loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
+            loyaltyActivityLog.setCreated_at(new SimpleDateFormat("MM/dd/yyyy").parse(dateField.getText()));
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
@@ -69,9 +74,9 @@ public class CustomerReviewForm extends JFrame {
             CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
             customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
-        } catch (SQLException exception) {
+        } catch (SQLException|NullPointerException exception) {
             System.out.println("exception raised.");
-            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
+            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand's loyalty program.");
             jFrame.setVisible(false);
         }
     }

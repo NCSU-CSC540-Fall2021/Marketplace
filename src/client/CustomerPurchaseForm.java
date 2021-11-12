@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CustomerPurchaseForm extends JFrame {
     private JPanel purchaseOptionsPanel;
@@ -16,6 +17,7 @@ public class CustomerPurchaseForm extends JFrame {
     private JTextField itemPurchased;
     private JButton goBackButton;
     private JButton purchaseButton;
+    private JTextField dateField;
     private JFrame jFrame;
     User user;
 
@@ -23,7 +25,9 @@ public class CustomerPurchaseForm extends JFrame {
         purchaseButton.addActionListener(e -> {
             try {
                 submit();
-            } catch (ParseException | SQLException ex) {
+            } catch (ParseException | SQLException | NullPointerException ex) {
+                JOptionPane.showMessageDialog(this, "This activity is not supported by this brand's loyalty program.");
+                jFrame.setVisible(false);
                 ex.printStackTrace();
             }
         });
@@ -63,6 +67,7 @@ public class CustomerPurchaseForm extends JFrame {
             String giftCard = giftCardCode.getText();
             String item_Purchased = itemPurchased.getText();
             System.out.println("Item purchased " + item_Purchased);
+            String date = dateField.getText();
 
             LoyaltyActivityLog loyaltyActivityLog = new LoyaltyActivityLog();
             loyaltyActivityLog.setActivity_code(activity_code);
@@ -71,6 +76,7 @@ public class CustomerPurchaseForm extends JFrame {
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(item_Purchased);
             loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
+            loyaltyActivityLog.setCreated_at(new SimpleDateFormat("MM/dd/yyyy").parse(date));
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createPurchase(loyaltyActivityLog);
@@ -79,9 +85,9 @@ public class CustomerPurchaseForm extends JFrame {
             CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
             customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
-        } catch (SQLException exception) {
+        } catch (SQLException|NullPointerException exception) {
             System.out.println("exception raised.");
-            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
+            JOptionPane.showMessageDialog(this, "This activity is not supported by this brand's loyalty program.");
             jFrame.setVisible(false);
         }
     }

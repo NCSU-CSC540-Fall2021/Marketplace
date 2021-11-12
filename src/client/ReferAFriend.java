@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class ReferAFriend extends JFrame {
     private JButton goBackButton;
@@ -15,6 +16,7 @@ public class ReferAFriend extends JFrame {
     private JTextField brandName;
     private JTextField referDetails;
     private JPanel referAFriendPanel;
+    private JTextField dateField;
     private JFrame jFrame;
     User user;
 
@@ -27,8 +29,10 @@ public class ReferAFriend extends JFrame {
         referAFriendButton.addActionListener(e -> {
             try {
                 submit();
-            } catch (ParseException | SQLException ex) {
+            } catch (ParseException | SQLException|NullPointerException ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "This activity is not supported by this brand's loyalty program.");
+                jFrame.setVisible(false);
             }
         });
     }
@@ -60,6 +64,7 @@ public class ReferAFriend extends JFrame {
             loyaltyActivityLog.setPoints_gained(rewardEarningRules.getRePoints());
             loyaltyActivityLog.setSummary(referDetails.getText());
             loyaltyActivityLog.setLoyalty_program_id(loyaltyProgram.getLoyaltyProgramId());
+            loyaltyActivityLog.setCreated_at(new SimpleDateFormat("MM/dd/yyyy").parse(dateField.getText()));
 
             LoyaltyActivityService loyaltyActivityService = new LoyaltyActivityService();
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
@@ -68,7 +73,7 @@ public class ReferAFriend extends JFrame {
             CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
             customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
-        } catch (SQLException exception) {
+        } catch (SQLException|NullPointerException exception) {
             System.out.println("exception raised.");
             JOptionPane.showMessageDialog(this, "This activity is not supported by this brand");
             jFrame.setVisible(false);

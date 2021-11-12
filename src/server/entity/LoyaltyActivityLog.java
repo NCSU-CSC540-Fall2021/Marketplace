@@ -10,9 +10,9 @@ public class LoyaltyActivityLog {
     public Integer customer_id;
     public Integer points_gained;
     public Integer loyalty_program_id;
-
     public String summary;
     public Integer deleted;
+    public Date created_at;
     public Timestamp updatedAt;
 
     public String getSummary() {
@@ -81,6 +81,14 @@ public class LoyaltyActivityLog {
 
     public Integer getLoyalty_program_id() {
         return loyalty_program_id;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     public void setLoyalty_program_id(Integer loyalty_program_id) {
