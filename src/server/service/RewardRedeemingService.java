@@ -69,7 +69,7 @@ public class RewardRedeemingService {
         rewardRedeemingRules.setUpdatedBy(user.getUserName());
     }
 
-    private RewardRedeemingRules getRrRulesByLoyaltyProgramRewardCode(LoyaltyProgram loyaltyProgram, String rewardCode) {
+    public RewardRedeemingRules getRrRulesByLoyaltyProgramRewardCode(LoyaltyProgram loyaltyProgram, String rewardCode) {
         RewardRedeemingRules rewardRedeemingRules = rewardRedeemingRulesDao.fetchRrRulesByLoyaltyProgramRewardCode(loyaltyProgram, rewardCode);
         return rewardRedeemingRules;
     }

@@ -10,13 +10,14 @@ import java.awt.event.ActionListener;
 public class CustomerRewardActivitiesCreation extends JFrame implements ActionListener {
     private JComboBox rewardActivities;
     private JPanel CustomerRewardActivitiesPanel;
+    private JButton goBackButton;
+    private JFrame jFrame;
     User user;
 
     enum RewardOptions {
         PURCHASE(1, "Purchase"),
         LEAVE_A_REVIEW(2, "Write a review"),
-        REFER_A_FRIEND(3, "Refer a friend"),
-        BACK(0, "Exit");
+        REFER_A_FRIEND(3, "Refer a friend");
 
         public int menuId;
         public String menuDescription;
@@ -31,20 +32,29 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
         public String getMenuDescription() {return menuDescription;}
     }
 
+    public CustomerRewardActivitiesCreation() {
+        goBackButton.addActionListener(e-> jFrame.setVisible(false));
+    }
+
     public void selectRewardActivity(User user) {
         this.user = user;
-        this.setTitle("Customer: Reward Activities");
-        this.setPreferredSize(new Dimension(500, 500));
-        this.setResizable(false);
+        jFrame = new JFrame("Customer: Reward Activities");
+        jFrame.setPreferredSize(new Dimension(500, 500));
+        jFrame.setResizable(false);
 
         RewardOptions[] rewardOptions = RewardOptions.values();
         rewardActivities = new JComboBox(rewardOptions);
         rewardActivities.addActionListener(this);
-        this.add(rewardActivities);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.pack();
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
+
+        CustomerRewardActivitiesPanel = new JPanel();
+        CustomerRewardActivitiesPanel.setLayout((new BoxLayout(CustomerRewardActivitiesPanel, BoxLayout.Y_AXIS)));
+        CustomerRewardActivitiesPanel.add(rewardActivities);
+        CustomerRewardActivitiesPanel.add(goBackButton);
+        jFrame.add(CustomerRewardActivitiesPanel);
+        jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jFrame.pack();
+        jFrame.setVisible(true);
+        jFrame.setLocationRelativeTo(null);
     }
 
     @Override
@@ -59,27 +69,22 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
     }
 
     private void performMenuOperation(RewardOptions selectedItem) {
-        switch(selectedItem.getMenuId()) {
-            case 0:
-                CustomerLanding customerLanding = new CustomerLanding();
-                customerLanding.showInput(user);
-                this.setVisible(false);
-                break;
-            case 1:
+        switch (selectedItem.getMenuId()) {
+            case 1 -> {
                 CustomerPurchaseForm customerPurchaseForm = new CustomerPurchaseForm();
                 customerPurchaseForm.selectPurchase(user);
                 this.setVisible(false);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 CustomerReviewForm customerReviewForm = new CustomerReviewForm();
                 customerReviewForm.leaveAReviewForm(user);
                 this.setVisible(false);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 ReferAFriend referAFriend = new ReferAFriend();
                 referAFriend.showReferAFriend(user);
                 this.setVisible(false);
-                break;
+            }
         }
     }
 }

@@ -23,16 +23,15 @@ public class CustomerLoyaltySignUp extends JFrame {
     User user;
 
     public CustomerLoyaltySignUp() {
-        goBackButton.addActionListener(
-                e-> {
-                    CustomerLanding customerLanding = new CustomerLanding();
-                    customerLanding.showInput(user);
-                    jFrame.setVisible(false);
-                });
-        enrollButton.addActionListener(e-> {
+        goBackButton.addActionListener(e -> {
+//          CustomerLanding customerLanding = new CustomerLanding();
+//          customerLanding.showInput(user);
+            jFrame.setVisible(false);
+        });
+        enrollButton.addActionListener(e -> {
             try {
                 submit();
-            } catch (SQLException|ParseException ex) {
+            } catch (SQLException | ParseException ex) {
                 ex.printStackTrace();
             }
         });
