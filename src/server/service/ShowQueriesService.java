@@ -38,6 +38,11 @@ public class ShowQueriesService {
         return resultForQuery5;
     }
 
+    public Map<String, List<String[]>> getResultForQuery6() {
+        Map<String, List<String[]>> resultForQuery6 = showQueriesDao.getResultForQuery6();
+        return resultForQuery6;
+    }
+
     public Map<String, List<String[]>> getResultForQuery7() {
         Map<String, List<String[]>> resultForQuery7 = showQueriesDao.getResultForQuery7();
         return resultForQuery7;

@@ -316,4 +316,51 @@ public class ShowQueriesDao {
         }
         return map;
     }
+
+    public Map<String, List<String[]>> getResultForQuery6() {
+        Map<String, List<String []>> map = new HashMap<>();
+        try {
+            connection = DatabaseConnection.createDatabaseConnection();
+            String sqlQuery = "SELECT ral.customer_id " +
+                    "FROM reward_activity_log ral " +
+                    "INNER JOIN LOYALTY_PROGRAM lp on ral.LOYALTY_PROGRAM_ID = lp.LOYALTY_PROGRAM_ID " +
+                    "INNER JOIN brand b on lp.BRAND_ID = b.BRAND_ID " +
+                    "where b.brand_name = 'BrandX' " +
+                    "GROUP BY ral.customer_id " +
+                    "HAVING COUNT(*)>1";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            try {
+                List<String []> columnNames = new ArrayList<>();
+                columnNames.add(new String[] {"customer_id"});
+                map.put("column_names", columnNames);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.isBeforeFirst()) {
+                    throw new SQLException("No data found");
+                }
+
+
+                List<String []> values = new ArrayList<>();
+                while (resultSet.next()) {
+                    System.out.println("Result for query 1 -- "
+                            + resultSet.getInt(1)
+                    );
+
+                    values.add(new String[]
+                            {
+                                    String.valueOf(resultSet.getInt(1))
+                            });
+                }
+                map.put("values", values);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+            DatabaseConnection.closeDatabaseConnection(connection);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return map;
+    }
 }
