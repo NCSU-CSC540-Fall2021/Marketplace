@@ -30,8 +30,8 @@ public class RedeemRewards extends JFrame{
 
     public RedeemRewards() {
         goBackButton.addActionListener(e -> {
-            CustomerLanding customerLanding = new CustomerLanding();
-            customerLanding.showInput(user);
+//            CustomerLanding customerLanding = new CustomerLanding();
+//            customerLanding.showInput(user);
             jFrame.setVisible(false);
         });
 
@@ -90,8 +90,8 @@ public class RedeemRewards extends JFrame{
         String response = rewardActivityLogService.createRewardActivityLog(rewardActivityLog);
 
         JOptionPane.showMessageDialog(this, response);
-        CustomerLanding customerLanding = new CustomerLanding();
-        customerLanding.showInput(user);
+//        CustomerLanding customerLanding = new CustomerLanding();
+//        customerLanding.showInput(user);
         jFrame.setVisible(false);
 
     }

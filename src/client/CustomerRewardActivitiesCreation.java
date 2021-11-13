@@ -16,7 +16,7 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
 
     enum RewardOptions {
         PURCHASE(1, "Purchase"),
-        LEAVE_A_REVIEW(2, "Write a review"),
+        WRITE_A_REVIEW(2, "Write a review"),
         REFER_A_FRIEND(3, "Refer a friend");
 
         public int menuId;
@@ -30,12 +30,14 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
             return menuId;
         }
         public String getMenuDescription() {return menuDescription;}
+
+
     }
 
     public CustomerRewardActivitiesCreation() {
         goBackButton.addActionListener(e -> {
-            CustomerLanding customerLanding = new CustomerLanding();
-            customerLanding.showInput(user);
+//            CustomerLanding customerLanding = new CustomerLanding();
+//            customerLanding.showInput(user);
             jFrame.setVisible(false);
         });
     }

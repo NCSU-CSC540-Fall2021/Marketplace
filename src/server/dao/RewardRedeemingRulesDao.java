@@ -92,9 +92,7 @@ public class RewardRedeemingRulesDao {
         Integer count = 0;
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Select count(*) from " + TABLENAME + " where loyalty_program = ? " +
-                    "order by version_number desc limit 1";
-
+            String sqlQuery = "Select count(*) from " + TABLENAME + " where loyalty_program = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, loyaltyProgram.getLoyaltyProgramId());
             try {
