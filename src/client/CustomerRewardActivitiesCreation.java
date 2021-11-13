@@ -33,7 +33,11 @@ public class CustomerRewardActivitiesCreation extends JFrame implements ActionLi
     }
 
     public CustomerRewardActivitiesCreation() {
-        goBackButton.addActionListener(e-> jFrame.setVisible(false));
+        goBackButton.addActionListener(e -> {
+            CustomerLanding customerLanding = new CustomerLanding();
+            customerLanding.showInput(user);
+            jFrame.setVisible(false);
+        });
     }
 
     public void selectRewardActivity(User user) {
