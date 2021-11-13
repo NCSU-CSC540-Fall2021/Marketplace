@@ -54,11 +54,14 @@ public class RewardRedeemingRulesDao {
         RewardRedeemingRules rewardRedeemingRules = null;
         try {
             connection = DatabaseConnection.createDatabaseConnection();
-            String sqlQuery = "Select * from " + TABLENAME + " where loyalty_program = ? and reward_code = ? order by version_number desc limit 1";
+            String sqlQuery = "Select * from " + TABLENAME + " where loyalty_program = ? and reward_code = ? " +
+                    "order by version_number desc FETCH FIRST 1 ROWS ONLY";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, loyaltyProgram.getLoyaltyProgramId());
             preparedStatement.setString(2, rewardCode);
+
+            System.out.println(preparedStatement.toString());
             try {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if(!resultSet.isBeforeFirst()) {

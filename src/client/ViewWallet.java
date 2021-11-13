@@ -23,14 +23,18 @@ public class ViewWallet {
     private JLabel noDataFound;
     private JFrame jFrame;
     private JTable viewWalletTable;
+    private User user;
 
     public ViewWallet() {
-        goBackButton.addActionListener(e->{
+        goBackButton.addActionListener(e -> {
+            CustomerLanding customerLanding = new CustomerLanding();
+            customerLanding.showInput(user);
             jFrame.setVisible(false);
         });
     }
 
     public void showCustomerWallet(User user) throws SQLException {
+        this.user = user;
         jFrame = new JFrame("Customer: View Wallet");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setPreferredSize(new Dimension(500, 500));
