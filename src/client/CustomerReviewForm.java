@@ -32,8 +32,8 @@ public class CustomerReviewForm extends JFrame {
             }
         });
         goBackButton.addActionListener(e-> {
-            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
-            customerRewardActivitiesCreation.selectRewardActivity(user);
+//            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+//            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         });
     }
@@ -71,8 +71,8 @@ public class CustomerReviewForm extends JFrame {
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
 
             JOptionPane.showMessageDialog(this, resp);
-            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
-            customerRewardActivitiesCreation.selectRewardActivity(user);
+//            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+//            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         } catch (SQLException|NullPointerException exception) {
             System.out.println("exception raised.");

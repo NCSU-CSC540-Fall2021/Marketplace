@@ -21,12 +21,12 @@ public class CustomerLanding extends JFrame {
         enrollInLoyaltyProgramButton.addActionListener(e -> {
             CustomerLoyaltySignUp customerLoyaltySignUp = new CustomerLoyaltySignUp();
             customerLoyaltySignUp.customerLoyaltyForm(user);
-            jFrame.setVisible(false);
+//            jFrame.setVisible(false);
         });
         rewardActivitiesButton.addActionListener(e -> {
             CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
             customerRewardActivitiesCreation.selectRewardActivity(user);
-            jFrame.setVisible(false);
+//            jFrame.setVisible(false);
         });
         viewWalletButton.addActionListener(e -> {
             ViewWallet viewWallet = new ViewWallet();
@@ -40,7 +40,7 @@ public class CustomerLanding extends JFrame {
         redeemPointsButton.addActionListener(e -> {
             RedeemRewards redeemRewards = new RedeemRewards();
             redeemRewards.redeemRewards(user);
-            jFrame.setVisible(false);
+//            jFrame.setVisible(false);
         });
         logOutButton.addActionListener(e -> {
             Homepage homepage = new Homepage();

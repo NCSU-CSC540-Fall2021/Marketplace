@@ -37,7 +37,7 @@ public class ViewWallet {
         this.user = user;
         jFrame = new JFrame("Customer: View Wallet");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jFrame.setPreferredSize(new Dimension(500, 500));
+        jFrame.setPreferredSize(new Dimension(600, 500));
         jFrame.setResizable(false);
         viewWalletPanel = new JPanel();
         viewWalletPanel.add(goBackButton);

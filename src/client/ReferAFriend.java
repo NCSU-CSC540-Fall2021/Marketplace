@@ -22,8 +22,6 @@ public class ReferAFriend extends JFrame {
 
     public ReferAFriend() {
         goBackButton.addActionListener(e -> {
-            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
-            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         });
         referAFriendButton.addActionListener(e -> {
@@ -70,8 +68,8 @@ public class ReferAFriend extends JFrame {
             String resp = loyaltyActivityService.createReview(loyaltyActivityLog);
 
             JOptionPane.showMessageDialog(this, resp);
-            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
-            customerRewardActivitiesCreation.selectRewardActivity(user);
+//            CustomerRewardActivitiesCreation customerRewardActivitiesCreation = new CustomerRewardActivitiesCreation();
+//            customerRewardActivitiesCreation.selectRewardActivity(user);
             jFrame.setVisible(false);
         } catch (SQLException|NullPointerException exception) {
             System.out.println("exception raised.");

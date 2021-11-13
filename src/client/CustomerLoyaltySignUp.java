@@ -24,8 +24,8 @@ public class CustomerLoyaltySignUp extends JFrame {
 
     public CustomerLoyaltySignUp() {
         goBackButton.addActionListener(e -> {
-          CustomerLanding customerLanding = new CustomerLanding();
-          customerLanding.showInput(user);
+//          CustomerLanding customerLanding = new CustomerLanding();
+//          customerLanding.showInput(user);
             jFrame.setVisible(false);
         });
         enrollButton.addActionListener(e -> {
