@@ -104,6 +104,10 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
                 break;
             case 6 :
                 // CUSTOMER_REDEEMED_BRAND_01
+                Map<String, List<String[]>> resultForQuery6 = showQueriesService.getResultForQuery6();
+                jTable = populateTableForQuery6(resultForQuery6);
+                queryOutputPage.showQuery(jTable);
+                jFrame.setVisible(false);
                 break;
             case 7 :
                 // BRANDS_TOTAL_REDEEMED_LT_500
@@ -121,6 +125,24 @@ public class ShowQueriesPage extends JFrame implements ActionListener {
                 break;
         }
         return null;
+    }
+
+    private JTable populateTableForQuery6(Map<String, List<String[]>> resultForQuery6) {
+        List<String> columns = new ArrayList<String>();
+        List<String[]> values = new ArrayList<>();
+
+        List<String[]> column_names = resultForQuery6.getOrDefault("column_names", new ArrayList<>());
+        for (String[] column_name : column_names) {
+            columns.addAll(Arrays.asList(column_name));
+        }
+        System.out.println(columns);
+
+        List<String[]> valuesList = resultForQuery6.getOrDefault("values", new ArrayList<>());
+        values.addAll(valuesList);
+
+        TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
+        JTable table = new JTable(tableModel);
+        return table;
     }
 
     private JTable populateTableForQuery8(Map<String, List<String[]>> resultForQuery8) {
