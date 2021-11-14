@@ -276,7 +276,7 @@ public class ShowQueriesDao {
                     "FROM loyalty_activity_log lal " +
                     "INNER JOIN reward_earning_rules rer on lal.reward_earning_code = rer.reward_earning_code " +
                     "INNER JOIN loyalty_program lp on rer.loyalty_program_id = lp.loyalty_program_id " +
-                    "where lal.updatedAt >= to_date('2021-08-01', 'YYYY-MM-DD') AND lal.updatedAt <= to_date('2021-09-30', 'YYYY-MM-DD') " +
+                    "where lal.updatedAt >= to_date('2021-08-01', 'YYYY-MM-DD') AND lal.created_at <= to_date('2021-09-30', 'YYYY-MM-DD') " +
                     "GROUP BY lal.customer_id, lp.brand_id";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
